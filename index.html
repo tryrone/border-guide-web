@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Your comprehensive guide to crossing international borders — visa requirements, customs regulations, travel documentation, and essential tips for smooth relocations." />
+  <title>BorderGuide — Your International Border Crossing Companion</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    /* Critical inline CSS — prevents white flash on load */
+    html, body {
+      background-color: #0C110E;
+      color: #c9d1d9;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===================== NAVBAR ===================== -->
+  <nav class="navbar" id="navbar">
+    <div class="container navbar__inner">
+      <a href="#" class="navbar__logo">
+        <span class="logo-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none"><defs><linearGradient id="navPinGrad" x1="24" y1="2" x2="24" y2="46" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#34D399"/><stop offset="100%" stop-color="#1F7A48"/></linearGradient><linearGradient id="navStarGrad" x1="24" y1="10" x2="24" y2="32" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#0C110E"/><stop offset="100%" stop-color="#1A2A1E"/></linearGradient></defs><path d="M24 4C15.716 4 9 10.268 9 18c0 5.4 3.6 11.4 7.8 16.2 2.1 2.4 4.2 4.4 5.7 5.8.6.6 1.2 1 1.5 1.3.3-.3.9-.7 1.5-1.3 1.5-1.4 3.6-3.4 5.7-5.8C35.4 29.4 39 23.4 39 18 39 10.268 32.284 4 24 4Z" fill="url(#navPinGrad)"/><circle cx="24" cy="18" r="8" fill="#0C110E" opacity="0.4"/><path d="M24 10L27.5 18L24 26L20.5 18Z" fill="url(#navStarGrad)"/><path d="M18 18L24 14.5L30 18L24 21.5Z" fill="url(#navStarGrad)" opacity="0.7"/></svg></span>
+        <span class="logo-text">Border<span class="logo-accent">Guide</span></span>
+      </a>
+      <div class="navbar__pill" id="navPill">
+        <div class="navbar__pill-indicator" id="pillIndicator"></div>
+        <ul class="navbar__links" id="navLinks">
+          <li><a href="#guides" class="navbar__link">Guides</a></li>
+          <li><a href="#documents" class="navbar__link">Documents</a></li>
+          <li><a href="#customs" class="navbar__link">Customs</a></li>
+          <li><a href="#tips" class="navbar__link">Tips</a></li>
+          <li><a href="#faq" class="navbar__link">FAQ</a></li>
+        </ul>
+      </div>
+      <a href="#newsletter" class="navbar__cta">
+        <i data-lucide="arrow-right" class="icon-inline-sm"></i>
+        <span>Get the App</span>
+      </a>
+      <button class="navbar__toggle" id="navToggle" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===================== HERO ===================== -->
+  <header class="hero" id="hero">
+    <canvas class="hero__particles" id="heroParticles"></canvas>
+    <div class="hero__grid-overlay"></div>
+    <div class="hero__bg-shapes">
+      <div class="shape shape--1"></div>
+      <div class="shape shape--2"></div>
+      <div class="shape shape--3"></div>
+    </div>
+    <div class="container hero__content">
+      <p class="hero__tag"><i data-lucide="plane" class="icon-inline"></i> Trusted by 50,000+ Travellers</p>
+      <h1 class="hero__title">Cross Borders<br /><span class="gradient-text">With Confidence</span></h1>
+      <p class="hero__subtitle">Everything you need to know about visa requirements, customs regulations, and travel documentation — all in one place.</p>
+      <div class="hero__actions">
+        <a href="#guides" class="btn btn--primary">Explore Guides</a>
+        <a href="#documents" class="btn btn--outline">Check Documents</a>
+      </div>
+      <div class="hero__stats">
+        <div class="stat">
+          <span class="stat__number" data-target="195">0</span>
+          <span class="stat__label">Countries Covered</span>
+        </div>
+        <div class="stat">
+          <span class="stat__number" data-target="1200">0</span><span class="stat__suffix">+</span>
+          <span class="stat__label">Border Crossings</span>
+        </div>
+        <div class="stat">
+          <span class="stat__number" data-target="50">0</span><span class="stat__suffix">K+</span>
+          <span class="stat__label">Happy Travellers</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================== GUIDES ===================== -->
+  <section class="section guides" id="guides">
+    <div class="container">
+      <div class="section__header">
+        <p class="section__tag">Regional Guides</p>
+        <h2 class="section__title">Border Crossing Guides</h2>
+        <p class="section__subtitle">Detailed, up-to-date information for every major region worldwide.</p>
+      </div>
+      <div class="guides__grid">
+
+        <article class="guide-card" data-region="europe">
+          <div class="guide-card__icon"><i data-lucide="landmark"></i></div>
+          <h3 class="guide-card__title">Europe &amp; Schengen</h3>
+          <p class="guide-card__desc">Navigate the Schengen Area, understand the 90/180-day rule, and learn about EU entry requirements.</p>
+          <ul class="guide-card__tags">
+            <li>Schengen Visa</li>
+            <li>ETIAS</li>
+            <li>Free Movement</li>
+          </ul>
+          <a href="#" class="guide-card__link">Read Guide <i data-lucide="arrow-right" class="icon-inline-sm"></i></a>
+        </article>
+
+        <article class="guide-card" data-region="americas">
+          <div class="guide-card__icon"><i data-lucide="map-pin"></i></div>
+          <h3 class="guide-card__title">The Americas</h3>
+          <p class="guide-card__desc">US ESTA &amp; visa waiver programs, Canadian eTA, and Latin American entry requirements explained.</p>
+          <ul class="guide-card__tags">
+            <li>ESTA</li>
+            <li>eTA Canada</li>
+            <li>Land Borders</li>
+          </ul>
+          <a href="#" class="guide-card__link">Read Guide <i data-lucide="arrow-right" class="icon-inline-sm"></i></a>
+        </article>
+
+        <article class="guide-card" data-region="asia">
+          <div class="guide-card__icon"><i data-lucide="compass"></i></div>
+          <h3 class="guide-card__title">Asia &amp; Pacific</h3>
+          <p class="guide-card__desc">Visa-on-arrival countries, e-visa systems, and special requirements for the Asia-Pacific region.</p>
+          <ul class="guide-card__tags">
+            <li>Visa on Arrival</li>
+            <li>E-Visa</li>
+            <li>APEC Card</li>
+          </ul>
+          <a href="#" class="guide-card__link">Read Guide <i data-lucide="arrow-right" class="icon-inline-sm"></i></a>
+        </article>
+
+        <article class="guide-card" data-region="africa">
+          <div class="guide-card__icon"><i data-lucide="map"></i></div>
+          <h3 class="guide-card__title">Africa</h3>
+          <p class="guide-card__desc">AfCFTA implications, regional bloc entry rules, yellow fever requirements, and border post information.</p>
+          <ul class="guide-card__tags">
+            <li>AfCFTA</li>
+            <li>Yellow Fever</li>
+            <li>ECOWAS</li>
+          </ul>
+          <a href="#" class="guide-card__link">Read Guide <i data-lucide="arrow-right" class="icon-inline-sm"></i></a>
+        </article>
+
+        <article class="guide-card" data-region="middle-east">
+          <div class="guide-card__icon"><i data-lucide="building-2"></i></div>
+          <h3 class="guide-card__title">Middle East</h3>
+          <p class="guide-card__desc">GCC visa policies, transit visas for hub airports, and essential cultural guidelines for travellers.</p>
+          <ul class="guide-card__tags">
+            <li>GCC Visa</li>
+            <li>Transit</li>
+            <li>E-Gates</li>
+          </ul>
+          <a href="#" class="guide-card__link">Read Guide <i data-lucide="arrow-right" class="icon-inline-sm"></i></a>
+        </article>
+
+        <article class="guide-card" data-region="oceania">
+          <div class="guide-card__icon"><i data-lucide="waves"></i></div>
+          <h3 class="guide-card__title">Oceania</h3>
+          <p class="guide-card__desc">Australia ETA, New Zealand NZeTA, biosecurity declarations, and Pacific island entry rules.</p>
+          <ul class="guide-card__tags">
+            <li>ETA</li>
+            <li>NZeTA</li>
+            <li>Biosecurity</li>
+          </ul>
+          <a href="#" class="guide-card__link">Read Guide <i data-lucide="arrow-right" class="icon-inline-sm"></i></a>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== DOCUMENTS ===================== -->
+  <section class="section documents" id="documents">
+    <div class="container">
+      <div class="section__header">
+        <p class="section__tag">Travel Checklist</p>
+        <h2 class="section__title">Essential Documents</h2>
+        <p class="section__subtitle">Make sure you have everything you need before you travel.</p>
+      </div>
+      <div class="documents__grid">
+
+        <div class="doc-card">
+          <div class="doc-card__icon"><i data-lucide="book-open"></i></div>
+          <h3 class="doc-card__title">Valid Passport</h3>
+          <p class="doc-card__desc">Most countries require at least 6 months validity beyond your travel date. Check renewal timelines early.</p>
+        </div>
+
+        <div class="doc-card">
+          <div class="doc-card__icon"><i data-lucide="clipboard-list"></i></div>
+          <h3 class="doc-card__title">Visa / Entry Permit</h3>
+          <p class="doc-card__desc">Research if you need a pre-approved visa, e-visa, or can obtain one on arrival at your destination.</p>
+        </div>
+
+        <div class="doc-card">
+          <div class="doc-card__icon"><i data-lucide="heart-pulse"></i></div>
+          <h3 class="doc-card__title">Health Certificates</h3>
+          <p class="doc-card__desc">Vaccination records, yellow fever certificates, and health declarations — some are mandatory at certain borders.</p>
+        </div>
+
+        <div class="doc-card">
+          <div class="doc-card__icon"><i data-lucide="shield-check"></i></div>
+          <h3 class="doc-card__title">Travel Insurance</h3>
+          <p class="doc-card__desc">Mandatory for Schengen visas and highly recommended everywhere. Covers medical, cancellation, and lost luggage.</p>
+        </div>
+
+        <div class="doc-card">
+          <div class="doc-card__icon"><i data-lucide="hotel"></i></div>
+          <h3 class="doc-card__title">Accommodation Proof</h3>
+          <p class="doc-card__desc">Hotel reservations, invitation letters, or proof of address. Immigration officers may request these at entry.</p>
+        </div>
+
+        <div class="doc-card">
+          <div class="doc-card__icon"><i data-lucide="wallet"></i></div>
+          <h3 class="doc-card__title">Financial Proof</h3>
+          <p class="doc-card__desc">Bank statements, sponsorship letters, or proof of sufficient funds for your stay. Requirements vary by country.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CUSTOMS ===================== -->
+  <section class="section customs" id="customs">
+    <div class="container">
+      <div class="section__header">
+        <p class="section__tag">Know Before You Go</p>
+        <h2 class="section__title">Customs &amp; Regulations</h2>
+        <p class="section__subtitle">Avoid fines and delays by understanding what you can and can't bring across borders.</p>
+      </div>
+      <div class="customs__content">
+
+        <div class="customs__item">
+          <div class="customs__badge customs__badge--green"><i data-lucide="circle-check" class="icon-inline"></i> Usually Allowed</div>
+          <ul class="customs__list">
+            <li>Personal clothing and toiletries</li>
+            <li>Prescription medication (with documentation)</li>
+            <li>Electronics for personal use</li>
+            <li>Gifts under duty-free limits</li>
+            <li>Limited alcohol &amp; tobacco within allowances</li>
+          </ul>
+        </div>
+
+        <div class="customs__item">
+          <div class="customs__badge customs__badge--amber"><i data-lucide="alert-triangle" class="icon-inline"></i> Declare Required</div>
+          <ul class="customs__list">
+            <li>Cash exceeding €10,000 / $10,000 equivalent</li>
+            <li>Commercial goods or samples</li>
+            <li>Certain foods, plants, and animal products</li>
+            <li>Valuable items (jewellery, art, antiques)</li>
+            <li>Firearms and ammunition (with permits)</li>
+          </ul>
+        </div>
+
+        <div class="customs__item">
+          <div class="customs__badge customs__badge--red"><i data-lucide="circle-x" class="icon-inline"></i> Prohibited</div>
+          <ul class="customs__list">
+            <li>Illegal narcotics and substances</li>
+            <li>Counterfeit goods and pirated materials</li>
+            <li>Endangered wildlife products (ivory, skins)</li>
+            <li>Certain cultural artefacts without export permits</li>
+            <li>Weapons without proper documentation</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== TIPS ===================== -->
+  <section class="section tips" id="tips">
+    <div class="container">
+      <div class="section__header">
+        <p class="section__tag">Expert Advice</p>
+        <h2 class="section__title">Border Crossing Tips</h2>
+        <p class="section__subtitle">Seasoned traveller advice to make your crossing smooth and stress-free.</p>
+      </div>
+      <div class="tips__grid">
+
+        <div class="tip-card">
+          <span class="tip-card__number">01</span>
+          <h3 class="tip-card__title">Arrive Early</h3>
+          <p class="tip-card__desc">Border queues can be unpredictable. Arrive with plenty of buffer time, especially at land crossings and during peak seasons.</p>
+        </div>
+
+        <div class="tip-card">
+          <span class="tip-card__number">02</span>
+          <h3 class="tip-card__title">Keep Documents Accessible</h3>
+          <p class="tip-card__desc">Have your passport, boarding pass, visa, and any required forms ready in a travel wallet. Don't bury them in luggage.</p>
+        </div>
+
+        <div class="tip-card">
+          <span class="tip-card__number">03</span>
+          <h3 class="tip-card__title">Know the Local Laws</h3>
+          <p class="tip-card__desc">What's legal at home may not be abroad. Research restricted items, dress codes, and photography rules before you travel.</p>
+        </div>
+
+        <div class="tip-card">
+          <span class="tip-card__number">04</span>
+          <h3 class="tip-card__title">Use E-Gates When Available</h3>
+          <p class="tip-card__desc">Many airports offer automated passport control. Check eligibility — it can save significant time compared to manual queues.</p>
+        </div>
+
+        <div class="tip-card">
+          <span class="tip-card__number">05</span>
+          <h3 class="tip-card__title">Carry Emergency Contacts</h3>
+          <p class="tip-card__desc">Have your embassy's local number, travel insurance hotline, and an emergency contact saved offline and printed.</p>
+        </div>
+
+        <div class="tip-card">
+          <span class="tip-card__number">06</span>
+          <h3 class="tip-card__title">Stay Calm &amp; Polite</h3>
+          <p class="tip-card__desc">Border officers process thousands daily. Be patient, answer questions clearly, and maintain a respectful demeanour.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ ===================== -->
+  <section class="section faq" id="faq">
+    <div class="container">
+      <div class="section__header">
+        <p class="section__tag">Common Questions</p>
+        <h2 class="section__title">Frequently Asked Questions</h2>
+      </div>
+      <div class="faq__list">
+
+        <details class="faq__item">
+          <summary class="faq__question">How far in advance should I apply for a visa?</summary>
+          <p class="faq__answer">It depends on the country, but generally 4–8 weeks before your travel date. Some countries like the US or UK can take 3+ months during peak periods. Always check the specific embassy processing times.</p>
+        </details>
+
+        <details class="faq__item">
+          <summary class="faq__question">What is the 90/180-day Schengen rule?</summary>
+          <p class="faq__answer">Non-EU nationals can stay in the Schengen Area for a maximum of 90 days within any 180-day rolling period. This applies across all 27 Schengen countries combined — not per country.</p>
+        </details>
+
+        <details class="faq__item">
+          <summary class="faq__question">Can I cross a border with an expired passport?</summary>
+          <p class="faq__answer">Generally no. Most countries require your passport to be valid for at least 6 months beyond your date of entry. Some bilateral agreements allow shorter validity, but it's safest to renew early.</p>
+        </details>
+
+        <details class="faq__item">
+          <summary class="faq__question">What happens if I overstay my visa?</summary>
+          <p class="faq__answer">Overstaying can result in fines, deportation, entry bans (often 1–10 years), and difficulties with future visa applications worldwide. Always track your permitted stay dates carefully.</p>
+        </details>
+
+        <details class="faq__item">
+          <summary class="faq__question">Do I need a visa for transit/layovers?</summary>
+          <p class="faq__answer">It depends on the country and your nationality. Some countries require a transit visa even if you don't leave the airport. The US notably requires this, while many EU hubs do not for short connections.</p>
+        </details>
+
+        <details class="faq__item">
+          <summary class="faq__question">What is a visa-on-arrival vs. an e-visa?</summary>
+          <p class="faq__answer">A visa-on-arrival is obtained at the port of entry — you queue and pay at the border. An e-visa is applied for online beforehand and approved digitally. E-visas are generally faster at the border since they're pre-approved.</p>
+        </details>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== NEWSLETTER ===================== -->
+  <section class="section newsletter" id="newsletter">
+    <div class="container">
+      <div class="newsletter__inner">
+        <h2 class="newsletter__title">Stay Updated on Border Changes</h2>
+        <p class="newsletter__desc">Get notified about visa policy changes, new travel advisories, and border crossing updates delivered to your inbox.</p>
+        <form class="newsletter__form" id="newsletterForm">
+          <input type="email" class="newsletter__input" placeholder="Enter your email address" required />
+          <button type="submit" class="btn btn--primary">Subscribe</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <a href="#" class="navbar__logo">
+          <span class="logo-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none"><defs><linearGradient id="ftPinGrad" x1="24" y1="2" x2="24" y2="46" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#34D399"/><stop offset="100%" stop-color="#1F7A48"/></linearGradient><linearGradient id="ftStarGrad" x1="24" y1="10" x2="24" y2="32" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#0C110E"/><stop offset="100%" stop-color="#1A2A1E"/></linearGradient></defs><path d="M24 4C15.716 4 9 10.268 9 18c0 5.4 3.6 11.4 7.8 16.2 2.1 2.4 4.2 4.4 5.7 5.8.6.6 1.2 1 1.5 1.3.3-.3.9-.7 1.5-1.3 1.5-1.4 3.6-3.4 5.7-5.8C35.4 29.4 39 23.4 39 18 39 10.268 32.284 4 24 4Z" fill="url(#ftPinGrad)"/><circle cx="24" cy="18" r="8" fill="#0C110E" opacity="0.4"/><path d="M24 10L27.5 18L24 26L20.5 18Z" fill="url(#ftStarGrad)"/><path d="M18 18L24 14.5L30 18L24 21.5Z" fill="url(#ftStarGrad)" opacity="0.7"/></svg></span>
+          <span class="logo-text">Border<span class="logo-accent">Guide</span></span>
+        </a>
+        <p class="footer__tagline">Making international borders less intimidating, one guide at a time.</p>
+      </div>
+      <div class="footer__links">
+        <div class="footer__col">
+          <h4>Guides</h4>
+          <a href="#">Europe</a>
+          <a href="#">Americas</a>
+          <a href="#">Asia &amp; Pacific</a>
+        </div>
+        <div class="footer__col">
+          <h4>Resources</h4>
+          <a href="#">Document Checklist</a>
+          <a href="#">Customs Rules</a>
+          <a href="#">Travel Tips</a>
+        </div>
+        <div class="footer__col">
+          <h4>Company</h4>
+          <a href="#">About Us</a>
+          <a href="#">Contact</a>
+          <a href="#">Privacy Policy</a>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>&copy; 2026 BorderGuide. All rights reserved. Information is provided for guidance only — always verify with official sources.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
