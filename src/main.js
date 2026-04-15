@@ -120,8 +120,7 @@ function initParticles() {
 // ============================================
 // MAIN INIT
 // ============================================
-document.addEventListener('DOMContentLoaded', () => {
-
+function initApp() {
   // ---------- Start particle background ----------
   initParticles();
 
@@ -238,9 +237,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const animateCounter = (el) => {
     const target = parseInt(el.getAttribute('data-target'), 10);
     const duration = 2000;
-    const startTime = performance.now();
+    let startTime = null;
 
     const step = (currentTime) => {
+      if (!startTime) startTime = currentTime;
       const elapsed = currentTime - startTime;
       const progress = Math.min(elapsed / duration, 1);
       const eased = 1 - Math.pow(1 - progress, 3);
@@ -282,8 +282,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Section headers
+  // Section headers — add .reveal so they use the same animation system as cards
   const sectionHeaders = document.querySelectorAll('.section__header');
+  sectionHeaders.forEach(el => el.classList.add('reveal'));
 
   let statsAnimated = false;
 
@@ -291,11 +292,6 @@ document.addEventListener('DOMContentLoaded', () => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
-
-        if (!statsAnimated && entry.target.closest('.hero__stats')) {
-          statsAnimated = true;
-          statNumbers.forEach(el => animateCounter(el));
-        }
       }
     });
   }, {
@@ -303,18 +299,16 @@ document.addEventListener('DOMContentLoaded', () => {
     rootMargin: '0px 0px -30px 0px'
   });
 
-  // Observe all reveal elements
+  // Observe all reveal elements (cards + section headers)
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  // Observe section headers
-  sectionHeaders.forEach(el => observer.observe(el));
-
-  // Observe hero stats
-  const heroStats = document.querySelector('.hero__stats');
-  if (heroStats) {
-    heroStats.classList.add('reveal');
-    observer.observe(heroStats);
-  }
+  // Trigger hero stats animation automatically to align with entrance animation
+  setTimeout(() => {
+    if (!statsAnimated) {
+      statsAnimated = true;
+      statNumbers.forEach(el => animateCounter(el));
+    }
+  }, 800);
 
   // ---------- Smooth scroll for anchor links ----------
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -348,5 +342,10 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.style.background = '';
     }, 3000);
   });
+}
 
-});
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initApp);
+} else {
+  initApp();
+}
