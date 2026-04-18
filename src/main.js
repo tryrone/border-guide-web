@@ -6,6 +6,8 @@ import {
   CircleCheck, AlertTriangle, CircleX, ArrowRight
 } from 'lucide';
 
+const WAITLIST_API_URL = import.meta.env.VITE_WAITLIST_API_URL || '/api/waitlist';
+
 // ---------- Initialize Lucide Icons ----------
 createIcons({
   icons: {
@@ -327,20 +329,56 @@ function initApp() {
 
   // ---------- Newsletter form ----------
   const newsletterForm = document.getElementById('newsletterForm');
-  newsletterForm.addEventListener('submit', (e) => {
+  const waitlistMessage = document.getElementById('waitlistMessage');
+  newsletterForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const input = newsletterForm.querySelector('input');
+    const input = newsletterForm.querySelector('#waitlistEmail');
     const btn = newsletterForm.querySelector('button');
+    const email = input.value.trim();
+
+    if (!email) return;
+
     const originalText = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = 'Joining...';
+    waitlistMessage.textContent = '';
+    waitlistMessage.className = 'newsletter__message';
 
-    btn.textContent = '✓ Subscribed!';
-    btn.style.background = '#34d399';
-    input.value = '';
+    try {
+      const response = await fetch(WAITLIST_API_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email,
+          source: 'landing_page'
+        })
+      });
 
-    setTimeout(() => {
+      const payload = await response.json();
+
+      if (!response.ok) {
+        throw new Error(payload?.message || 'Could not join waitlist. Please try again.');
+      }
+
+      btn.textContent = 'Added!';
+      waitlistMessage.textContent = payload?.alreadyJoined
+        ? 'This email is already on the waitlist. You are good to go.'
+        : 'You are on the waitlist. We will send early access details soon.';
+      waitlistMessage.classList.add('newsletter__message--success');
+      input.value = '';
+    } catch (error) {
       btn.textContent = originalText;
-      btn.style.background = '';
-    }, 3000);
+      waitlistMessage.textContent = error?.message || 'Something went wrong. Please try again.';
+      waitlistMessage.classList.add('newsletter__message--error');
+    } finally {
+      setTimeout(() => {
+        btn.textContent = originalText;
+      }, 1800);
+
+      btn.disabled = false;
+    }
   });
 }
 

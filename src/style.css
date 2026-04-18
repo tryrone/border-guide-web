@@ -858,6 +858,23 @@ img { max-width: 100%; display: block; }
 }
 .newsletter__input::placeholder { color: var(--clr-text-muted); }
 .newsletter__input:focus { border-color: var(--clr-primary); }
+.newsletter__message {
+  min-height: 1.4rem;
+  margin-top: 0.9rem;
+  font-size: 0.9rem;
+  color: var(--clr-text-muted);
+  position: relative;
+}
+.newsletter__message--success {
+  color: #6ee7b7;
+}
+.newsletter__message--error {
+  color: #fca5a5;
+}
+.newsletter__form .btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
 
 /* ============================================
    FOOTER
