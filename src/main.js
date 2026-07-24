@@ -330,56 +330,188 @@ function initApp() {
   // ---------- Newsletter form ----------
   const newsletterForm = document.getElementById('newsletterForm');
   const waitlistMessage = document.getElementById('waitlistMessage');
-  newsletterForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const input = newsletterForm.querySelector('#waitlistEmail');
-    const btn = newsletterForm.querySelector('button');
-    const email = input.value.trim();
+  if (newsletterForm) {
+    newsletterForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const input = newsletterForm.querySelector('#waitlistEmail');
+      const btn = newsletterForm.querySelector('button');
+      const email = input.value.trim();
 
-    if (!email) return;
+      if (!email) return;
 
-    const originalText = btn.textContent;
-    btn.disabled = true;
-    btn.textContent = 'Joining...';
-    waitlistMessage.textContent = '';
-    waitlistMessage.className = 'newsletter__message';
+      const originalText = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = 'Joining...';
+      waitlistMessage.textContent = '';
+      waitlistMessage.className = 'newsletter__message';
 
-    try {
-      const response = await fetch(WAITLIST_API_URL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          email,
-          source: 'landing_page'
-        })
-      });
+      try {
+        const response = await fetch(WAITLIST_API_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            email,
+            source: 'landing_page'
+          })
+        });
 
-      const payload = await response.json();
+        const payload = await response.json();
 
-      if (!response.ok) {
-        throw new Error(payload?.message || 'Could not join waitlist. Please try again.');
+        if (!response.ok) {
+          throw new Error(payload?.message || 'Could not join waitlist. Please try again.');
+        }
+
+        btn.textContent = 'Added!';
+        waitlistMessage.textContent = payload?.alreadyJoined
+          ? 'This email is already on the waitlist. You are good to go.'
+          : 'You are on the waitlist. We will send early access details soon.';
+        waitlistMessage.classList.add('newsletter__message--success');
+        input.value = '';
+      } catch (error) {
+        btn.textContent = originalText;
+        waitlistMessage.textContent = error?.message || 'Something went wrong. Please try again.';
+        waitlistMessage.classList.add('newsletter__message--error');
+      } finally {
+        setTimeout(() => {
+          btn.textContent = originalText;
+        }, 1800);
+
+        btn.disabled = false;
+      }
+    });
+  }
+
+  // ---------- Delete Account Logic ----------
+  initDeleteAccount();
+}
+
+function initDeleteAccount() {
+  const tabInstantBtn = document.getElementById('tabInstantBtn');
+  const tabRequestBtn = document.getElementById('tabRequestBtn');
+  const tabInstant = document.getElementById('tabInstant');
+  const tabRequest = document.getElementById('tabRequest');
+  const instantForm = document.getElementById('instantDeleteForm');
+  const requestForm = document.getElementById('requestDeleteForm');
+  const successScreen = document.getElementById('successScreen');
+  const successMessageText = document.getElementById('successMessageText');
+  const successRefBadge = document.getElementById('successRefBadge');
+
+  if (!tabInstantBtn || !tabRequestBtn) return;
+
+  tabInstantBtn.addEventListener('click', () => {
+    tabInstantBtn.classList.add('active');
+    tabInstantBtn.setAttribute('aria-selected', 'true');
+    tabRequestBtn.classList.remove('active');
+    tabRequestBtn.setAttribute('aria-selected', 'false');
+
+    tabInstant.classList.add('active');
+    tabRequest.classList.remove('active');
+  });
+
+  tabRequestBtn.addEventListener('click', () => {
+    tabRequestBtn.classList.add('active');
+    tabRequestBtn.setAttribute('aria-selected', 'true');
+    tabInstantBtn.classList.remove('active');
+    tabInstantBtn.setAttribute('aria-selected', 'false');
+
+    tabRequest.classList.add('active');
+    tabInstant.classList.remove('active');
+  });
+
+  if (instantForm) {
+    instantForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('instantEmail').value.trim();
+      const password = document.getElementById('instantPassword').value;
+      const confirmCheck = document.getElementById('instantConfirmCheck').checked;
+      const submitBtn = document.getElementById('instantSubmitBtn');
+      const alertError = document.getElementById('instantAlertError');
+
+      alertError.style.display = 'none';
+
+      if (!confirmCheck) {
+        alertError.textContent = 'Please confirm that you understand account deletion is permanent.';
+        alertError.style.display = 'block';
+        return;
       }
 
-      btn.textContent = 'Added!';
-      waitlistMessage.textContent = payload?.alreadyJoined
-        ? 'This email is already on the waitlist. You are good to go.'
-        : 'You are on the waitlist. We will send early access details soon.';
-      waitlistMessage.classList.add('newsletter__message--success');
-      input.value = '';
-    } catch (error) {
-      btn.textContent = originalText;
-      waitlistMessage.textContent = error?.message || 'Something went wrong. Please try again.';
-      waitlistMessage.classList.add('newsletter__message--error');
-    } finally {
-      setTimeout(() => {
-        btn.textContent = originalText;
-      }, 1800);
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span>Processing Deletion...</span>';
 
-      btn.disabled = false;
-    }
-  });
+      try {
+        const response = await fetch('/api/account/delete', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok || !data.success) {
+          throw new Error(data.message || 'Failed to delete account. Please check your credentials.');
+        }
+
+        // Show Success Screen
+        document.querySelector('.tab-nav').style.display = 'none';
+        tabInstant.style.display = 'none';
+        tabRequest.style.display = 'none';
+        successMessageText.textContent = data.message || 'Your account and personal data have been deleted.';
+        successScreen.style.display = 'block';
+      } catch (err) {
+        alertError.textContent = err.message;
+        alertError.style.display = 'block';
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i data-lucide="circle-x" class="icon-inline"></i><span>Delete My Account Now</span>';
+      }
+    });
+  }
+
+  if (requestForm) {
+    requestForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('requestEmail').value.trim();
+      const reason = document.getElementById('requestReason').value;
+      const notes = document.getElementById('requestNotes').value.trim();
+      const submitBtn = document.getElementById('requestSubmitBtn');
+      const alertError = document.getElementById('requestAlertError');
+
+      alertError.style.display = 'none';
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span>Submitting Request...</span>';
+
+      try {
+        const response = await fetch('/api/account/request-deletion', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, reason, notes })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok || !data.success) {
+          throw new Error(data.message || 'Failed to submit deletion request.');
+        }
+
+        // Show Success Screen
+        document.querySelector('.tab-nav').style.display = 'none';
+        tabInstant.style.display = 'none';
+        tabRequest.style.display = 'none';
+        successMessageText.textContent = data.message || 'Account deletion request received.';
+        if (data.referenceId) {
+          successRefBadge.textContent = `Reference Code: ${data.referenceId}`;
+          successRefBadge.style.display = 'inline-block';
+        }
+        successScreen.style.display = 'block';
+      } catch (err) {
+        alertError.textContent = err.message;
+        alertError.style.display = 'block';
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i data-lucide="arrow-right" class="icon-inline"></i><span>Submit Account Deletion Request</span>';
+      }
+    });
+  }
 }
 
 if (document.readyState === 'loading') {

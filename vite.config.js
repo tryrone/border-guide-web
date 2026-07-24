@@ -18,7 +18,8 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'index.html'),
         privacyPolicy: resolve(__dirname, 'privacy-policy.html'),
-        termsOfUse: resolve(__dirname, 'terms-of-use.html')
+        termsOfUse: resolve(__dirname, 'terms-of-use.html'),
+        deleteAccount: resolve(__dirname, 'delete-account.html')
       }
     }
   }
