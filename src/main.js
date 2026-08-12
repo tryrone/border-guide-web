@@ -1,9 +1,10 @@
 import './style.css';
-import { createIcons, ArrowRight, ArrowUpRight, BookOpen, BriefcaseBusiness, Building2, Check, ChevronRight, Circle, CircleCheck, CircleX, FileCheck2, GraduationCap, ListChecks, Map, Menu, MoreHorizontal, MoveDown, PlaneTakeoff, Route, Search, SlidersHorizontal, Sparkles, Stamp } from 'lucide';
+import './legal.css';
+import { createIcons, ArrowLeft, ArrowRight, ArrowUpRight, BookOpen, BriefcaseBusiness, Building2, CalendarDays, Check, ChevronRight, Circle, CircleCheck, CircleX, CreditCard, FileCheck2, Files, GraduationCap, Info, ListChecks, Map, Menu, MoreHorizontal, MoveDown, PlaneTakeoff, Route, Search, Send, ShieldCheck, SlidersHorizontal, Sparkles, Stamp, Trash2, TriangleAlert, UserRound } from 'lucide';
 
 const WAITLIST_API_URL = import.meta.env.VITE_WAITLIST_API_URL || '/api/waitlist';
 
-createIcons({ icons: { ArrowRight, ArrowUpRight, BookOpen, BriefcaseBusiness, Building2, Check, ChevronRight, Circle, CircleCheck, CircleX, FileCheck2, GraduationCap, ListChecks, Map, Menu, MoreHorizontal, MoveDown, PlaneTakeoff, Route, Search, SlidersHorizontal, Sparkles, Stamp } });
+createIcons({ icons: { ArrowLeft, ArrowRight, ArrowUpRight, BookOpen, BriefcaseBusiness, Building2, CalendarDays, Check, ChevronRight, Circle, CircleCheck, CircleX, CreditCard, FileCheck2, Files, GraduationCap, Info, ListChecks, Map, Menu, MoreHorizontal, MoveDown, PlaneTakeoff, Route, Search, Send, ShieldCheck, SlidersHorizontal, Sparkles, Stamp, Trash2, TriangleAlert, UserRound } });
 
 function initNavigation() {
   const navbar = document.getElementById('navbar');
@@ -83,11 +84,20 @@ function initDeleteAccount() {
     requestButton.classList.toggle('active', !showInstant);
     instantButton.setAttribute('aria-selected', String(showInstant));
     requestButton.setAttribute('aria-selected', String(!showInstant));
+    instantButton.tabIndex = showInstant ? 0 : -1;
+    requestButton.tabIndex = showInstant ? -1 : 0;
     instantTab.classList.toggle('active', showInstant);
     requestTab.classList.toggle('active', !showInstant);
   };
   instantButton.addEventListener('click', () => switchTab(true));
   requestButton.addEventListener('click', () => switchTab(false));
+  [instantButton, requestButton].forEach((button) => button.addEventListener('keydown', (event) => {
+    if (!['ArrowLeft', 'ArrowRight'].includes(event.key)) return;
+    event.preventDefault();
+    const showInstant = button === requestButton;
+    switchTab(showInstant);
+    (showInstant ? instantButton : requestButton).focus();
+  }));
 
   const instantForm = document.getElementById('instantDeleteForm');
   const requestForm = document.getElementById('requestDeleteForm');
@@ -102,6 +112,7 @@ function initDeleteAccount() {
     const confirmed = document.getElementById('instantConfirmCheck').checked;
     const submit = document.getElementById('instantSubmitBtn');
     const error = document.getElementById('instantAlertError');
+    const originalButton = submit.innerHTML;
     error.style.display = 'none';
     if (!confirmed) {
       error.textContent = 'Please confirm that you understand account deletion is permanent.';
@@ -112,7 +123,7 @@ function initDeleteAccount() {
     submit.textContent = 'Processing deletion…';
     try {
       const response = await fetch('/api/account/delete', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, password }) });
-      const data = await response.json();
+      const data = await response.json().catch(() => ({}));
       if (!response.ok || !data.success) throw new Error(data.message || 'Failed to delete account. Please check your credentials.');
       document.querySelector('.tab-nav').style.display = 'none';
       instantTab.style.display = 'none';
@@ -123,7 +134,8 @@ function initDeleteAccount() {
       error.textContent = err.message;
       error.style.display = 'block';
       submit.disabled = false;
-      submit.textContent = 'Delete my account now';
+      submit.innerHTML = originalButton;
+      createIcons({ icons: { Trash2 } });
     }
   });
 
@@ -134,12 +146,13 @@ function initDeleteAccount() {
     const notes = document.getElementById('requestNotes').value.trim();
     const submit = document.getElementById('requestSubmitBtn');
     const error = document.getElementById('requestAlertError');
+    const originalButton = submit.innerHTML;
     error.style.display = 'none';
     submit.disabled = true;
     submit.textContent = 'Submitting request…';
     try {
       const response = await fetch('/api/account/request-deletion', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, reason, notes }) });
-      const data = await response.json();
+      const data = await response.json().catch(() => ({}));
       if (!response.ok || !data.success) throw new Error(data.message || 'Failed to submit deletion request.');
       document.querySelector('.tab-nav').style.display = 'none';
       instantTab.style.display = 'none';
@@ -154,7 +167,8 @@ function initDeleteAccount() {
       error.textContent = err.message;
       error.style.display = 'block';
       submit.disabled = false;
-      submit.textContent = 'Submit account deletion request';
+      submit.innerHTML = originalButton;
+      createIcons({ icons: { Send } });
     }
   });
 }
