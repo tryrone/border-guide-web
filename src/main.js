@@ -1,521 +1,170 @@
 import './style.css';
-import { createIcons } from 'lucide';
-import {
-  Plane, Landmark, MapPin, Compass, Building2, Waves, Map,
-  BookOpen, ClipboardList, HeartPulse, ShieldCheck, Hotel, Wallet,
-  CircleCheck, AlertTriangle, CircleX, ArrowRight
-} from 'lucide';
+import { createIcons, ArrowRight, ArrowUpRight, BookOpen, BriefcaseBusiness, Building2, Check, ChevronRight, Circle, CircleCheck, CircleX, FileCheck2, GraduationCap, ListChecks, Map, Menu, MoreHorizontal, MoveDown, PlaneTakeoff, Route, Search, SlidersHorizontal, Sparkles, Stamp } from 'lucide';
 
 const WAITLIST_API_URL = import.meta.env.VITE_WAITLIST_API_URL || '/api/waitlist';
 
-// ---------- Initialize Lucide Icons ----------
-createIcons({
-  icons: {
-    Plane, Landmark, MapPin, Compass, Building2, Waves, Map,
-    BookOpen, ClipboardList, HeartPulse, ShieldCheck, Hotel, Wallet,
-    CircleCheck, AlertTriangle, CircleX, ArrowRight
-  }
-});
+createIcons({ icons: { ArrowRight, ArrowUpRight, BookOpen, BriefcaseBusiness, Building2, Check, ChevronRight, Circle, CircleCheck, CircleX, FileCheck2, GraduationCap, ListChecks, Map, Menu, MoreHorizontal, MoveDown, PlaneTakeoff, Route, Search, SlidersHorizontal, Sparkles, Stamp } });
 
-// ============================================
-// PARTICLE NETWORK — Hero background
-// ============================================
-function initParticles() {
-  const canvas = document.getElementById('heroParticles');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  let animId;
-
-  const PARTICLE_COUNT = 60;
-  const CONNECTION_DIST = 140;
-  const PARTICLE_SPEED = 0.3;
-
-  let w, h;
-  const particles = [];
-
-  function resize() {
-    const hero = canvas.parentElement;
-    w = canvas.width = hero.offsetWidth;
-    h = canvas.height = hero.offsetHeight;
-  }
-
-  class Particle {
-    constructor() {
-      this.x = Math.random() * w;
-      this.y = Math.random() * h;
-      this.vx = (Math.random() - 0.5) * PARTICLE_SPEED;
-      this.vy = (Math.random() - 0.5) * PARTICLE_SPEED;
-      this.r = Math.random() * 1.8 + 0.6;
-      this.opacity = Math.random() * 0.4 + 0.1;
-      this.pulsePhase = Math.random() * Math.PI * 2;
-    }
-    update(t) {
-      this.x += this.vx;
-      this.y += this.vy;
-      if (this.x < 0 || this.x > w) this.vx *= -1;
-      if (this.y < 0 || this.y > h) this.vy *= -1;
-      // subtle pulse
-      this.currentOpacity = this.opacity + Math.sin(t * 0.001 + this.pulsePhase) * 0.08;
-    }
-    draw() {
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(52, 211, 153, ${this.currentOpacity})`;
-      ctx.fill();
-    }
-  }
-
-  function init() {
-    resize();
-    particles.length = 0;
-    for (let i = 0; i < PARTICLE_COUNT; i++) {
-      particles.push(new Particle());
-    }
-  }
-
-  function drawConnections() {
-    for (let i = 0; i < particles.length; i++) {
-      for (let j = i + 1; j < particles.length; j++) {
-        const dx = particles[i].x - particles[j].x;
-        const dy = particles[i].y - particles[j].y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < CONNECTION_DIST) {
-          const alpha = (1 - dist / CONNECTION_DIST) * 0.12;
-          ctx.beginPath();
-          ctx.moveTo(particles[i].x, particles[i].y);
-          ctx.lineTo(particles[j].x, particles[j].y);
-          ctx.strokeStyle = `rgba(40, 150, 90, ${alpha})`;
-          ctx.lineWidth = 0.6;
-          ctx.stroke();
-        }
-      }
-    }
-  }
-
-  function animate(t) {
-    ctx.clearRect(0, 0, w, h);
-    particles.forEach(p => {
-      p.update(t);
-      p.draw();
-    });
-    drawConnections();
-    animId = requestAnimationFrame(animate);
-  }
-
-  init();
-  animate(0);
-
-  let resizeTimer;
-  window.addEventListener('resize', () => {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(() => {
-      resize();
-      // Reposition particles within bounds
-      particles.forEach(p => {
-        if (p.x > w) p.x = w - 10;
-        if (p.y > h) p.y = h - 10;
-      });
-    }, 150);
+function initNavigation() {
+  const navbar = document.getElementById('navbar');
+  const toggle = document.getElementById('navToggle');
+  const menu = document.getElementById('navMenu');
+  if (navbar) window.addEventListener('scroll', () => navbar.classList.toggle('is-scrolled', window.scrollY > 16), { passive: true });
+  if (!toggle || !menu) return;
+  toggle.addEventListener('click', () => {
+    const open = menu.classList.toggle('is-open');
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
   });
+  menu.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => {
+    menu.classList.remove('is-open');
+    toggle.setAttribute('aria-expanded', 'false');
+  }));
 }
 
-// ============================================
-// MAIN INIT
-// ============================================
-function initApp() {
-  // ---------- Start particle background ----------
-  initParticles();
-
-  // ---------- Navbar scroll effect ----------
-  const navbar = document.getElementById('navbar');
-  window.addEventListener('scroll', () => {
-    navbar.classList.toggle('scrolled', window.scrollY > 40);
-  });
-
-  // ---------- Mobile nav toggle ----------
-  const navToggle = document.getElementById('navToggle');
-  const navPill = document.getElementById('navPill');
-
-  navToggle.addEventListener('click', () => {
-    navPill.classList.toggle('active');
-    const spans = navToggle.querySelectorAll('span');
-    if (navPill.classList.contains('active')) {
-      spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
-      spans[1].style.opacity = '0';
-      spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
-    } else {
-      spans[0].style.transform = '';
-      spans[1].style.opacity = '';
-      spans[2].style.transform = '';
-    }
-  });
-
-  // Close mobile menu on link click
-  const navLinks = document.querySelectorAll('.navbar__link');
-  navLinks.forEach(link => {
-    link.addEventListener('click', () => {
-      navPill.classList.remove('active');
-      const spans = navToggle.querySelectorAll('span');
-      spans[0].style.transform = '';
-      spans[1].style.opacity = '';
-      spans[2].style.transform = '';
-    });
-  });
-
-  // ---------- Pill indicator (sliding highlight) ----------
-  const pillIndicator = document.getElementById('pillIndicator');
-  const pillContainer = document.getElementById('navPill');
-
-  function movePillTo(linkEl) {
-    if (!linkEl || !pillIndicator || !pillContainer) return;
-    const pillRect = pillContainer.getBoundingClientRect();
-    const linkRect = linkEl.getBoundingClientRect();
-    const left = linkRect.left - pillRect.left;
-    const width = linkRect.width;
-
-    pillIndicator.style.left = `${left}px`;
-    pillIndicator.style.width = `${width}px`;
-    pillIndicator.style.opacity = '1';
-
-    navLinks.forEach(l => l.classList.remove('active'));
-    linkEl.classList.add('active');
+function initReveal() {
+  const elements = document.querySelectorAll('.reveal');
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    elements.forEach((element) => element.classList.add('is-visible'));
+    return;
   }
-
-  function clearPill() {
-    if (pillIndicator) pillIndicator.style.opacity = '0';
-    navLinks.forEach(l => l.classList.remove('active'));
-  }
-
-  navLinks.forEach(link => {
-    link.addEventListener('mouseenter', () => movePillTo(link));
-  });
-
-  if (pillContainer) {
-    pillContainer.addEventListener('mouseleave', () => {
-      const activeLink = getActiveSectionLink();
-      if (activeLink) {
-        movePillTo(activeLink);
-      } else {
-        clearPill();
-      }
-    });
-  }
-
-  // ---------- Active section tracking on scroll ----------
-  const sections = ['guides', 'documents', 'customs', 'tips', 'faq'];
-  const sectionEls = sections.map(id => document.getElementById(id)).filter(Boolean);
-
-  function getActiveSectionLink() {
-    const scrollY = window.scrollY + navbar.offsetHeight + 100;
-    let activeId = null;
-    for (const section of sectionEls) {
-      if (section.offsetTop <= scrollY) activeId = section.id;
-    }
-    if (activeId) return document.querySelector(`.navbar__link[href="#${activeId}"]`);
-    return null;
-  }
-
-  function updateActiveOnScroll() {
-    if (pillContainer && pillContainer.matches(':hover')) return;
-    const activeLink = getActiveSectionLink();
-    if (activeLink) movePillTo(activeLink);
-    else clearPill();
-  }
-
-  let scrollTicking = false;
-  window.addEventListener('scroll', () => {
-    if (!scrollTicking) {
-      requestAnimationFrame(() => {
-        updateActiveOnScroll();
-        scrollTicking = false;
-      });
-      scrollTicking = true;
-    }
-  });
-
-  // ---------- Animated stat counters ----------
-  const statNumbers = document.querySelectorAll('.stat__number');
-
-  const animateCounter = (el) => {
-    const target = parseInt(el.getAttribute('data-target'), 10);
-    const duration = 2000;
-    let startTime = null;
-
-    const step = (currentTime) => {
-      if (!startTime) startTime = currentTime;
-      const elapsed = currentTime - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      el.textContent = Math.floor(target * eased);
-      if (progress < 1) {
-        requestAnimationFrame(step);
-      } else {
-        el.textContent = target;
-      }
-    };
-    requestAnimationFrame(step);
-  };
-
-  // ---------- Scroll-reveal with stagger ----------
-  const revealSelectors = [
-    '.guide-card',
-    '.doc-card',
-    '.customs__item',
-    '.tip-card',
-    '.faq__item',
-    '.newsletter__inner'
-  ];
-
-  // Group elements by their parent container for staggering
-  const revealGroups = new Map();
-  revealSelectors.forEach(sel => {
-    document.querySelectorAll(sel).forEach(el => {
-      el.classList.add('reveal');
-      const parent = el.parentElement;
-      if (!revealGroups.has(parent)) revealGroups.set(parent, []);
-      revealGroups.get(parent).push(el);
-    });
-  });
-
-  // Assign stagger delays within each group
-  revealGroups.forEach(group => {
-    group.forEach((el, i) => {
-      el.style.setProperty('--reveal-delay', `${i * 0.1}s`);
-    });
-  });
-
-  // Section headers — add .reveal so they use the same animation system as cards
-  const sectionHeaders = document.querySelectorAll('.section__header');
-  sectionHeaders.forEach(el => el.classList.add('reveal'));
-
-  let statsAnimated = false;
-
   const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
+    entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
       }
     });
-  }, {
-    threshold: 0.1,
-    rootMargin: '0px 0px -30px 0px'
-  });
+  }, { threshold: 0.12, rootMargin: '0px 0px -36px' });
+  elements.forEach((element) => observer.observe(element));
+}
 
-  // Observe all reveal elements (cards + section headers)
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-  // Trigger hero stats animation automatically to align with entrance animation
-  setTimeout(() => {
-    if (!statsAnimated) {
-      statsAnimated = true;
-      statNumbers.forEach(el => animateCounter(el));
+function initWaitlist() {
+  const form = document.getElementById('newsletterForm');
+  const message = document.getElementById('waitlistMessage');
+  if (!form || !message) return;
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const input = form.querySelector('#waitlistEmail');
+    const button = form.querySelector('button');
+    const email = input.value.trim();
+    if (!email || !button) return;
+    const original = button.innerHTML;
+    button.disabled = true;
+    button.textContent = 'Joining…';
+    message.textContent = '';
+    message.className = 'newsletter__message';
+    try {
+      const response = await fetch(WAITLIST_API_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, source: 'landing_page' }) });
+      const payload = await response.json();
+      if (!response.ok) throw new Error(payload?.message || 'Could not join the waitlist. Please try again.');
+      message.textContent = payload?.alreadyJoined ? 'You are already on the waitlist.' : 'You are on the list. We will be in touch soon.';
+      message.classList.add('newsletter__message--success');
+      input.value = '';
+    } catch (error) {
+      message.textContent = error?.message || 'Something went wrong. Please try again.';
+      message.classList.add('newsletter__message--error');
+    } finally {
+      button.disabled = false;
+      button.innerHTML = original;
+      createIcons({ icons: { ArrowRight } });
     }
-  }, 800);
-
-  // ---------- Smooth scroll for anchor links ----------
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', (e) => {
-      const targetId = anchor.getAttribute('href');
-      if (targetId === '#') return;
-      e.preventDefault();
-      const targetEl = document.querySelector(targetId);
-      if (targetEl) {
-        const navHeight = navbar.offsetHeight;
-        const targetPosition = targetEl.getBoundingClientRect().top + window.scrollY - navHeight - 20;
-        window.scrollTo({ top: targetPosition, behavior: 'smooth' });
-      }
-    });
   });
-
-  // ---------- Newsletter form ----------
-  const newsletterForm = document.getElementById('newsletterForm');
-  const waitlistMessage = document.getElementById('waitlistMessage');
-  if (newsletterForm) {
-    newsletterForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const input = newsletterForm.querySelector('#waitlistEmail');
-      const btn = newsletterForm.querySelector('button');
-      const email = input.value.trim();
-
-      if (!email) return;
-
-      const originalText = btn.textContent;
-      btn.disabled = true;
-      btn.textContent = 'Joining...';
-      waitlistMessage.textContent = '';
-      waitlistMessage.className = 'newsletter__message';
-
-      try {
-        const response = await fetch(WAITLIST_API_URL, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            email,
-            source: 'landing_page'
-          })
-        });
-
-        const payload = await response.json();
-
-        if (!response.ok) {
-          throw new Error(payload?.message || 'Could not join waitlist. Please try again.');
-        }
-
-        btn.textContent = 'Added!';
-        waitlistMessage.textContent = payload?.alreadyJoined
-          ? 'This email is already on the waitlist. You are good to go.'
-          : 'You are on the waitlist. We will send early access details soon.';
-        waitlistMessage.classList.add('newsletter__message--success');
-        input.value = '';
-      } catch (error) {
-        btn.textContent = originalText;
-        waitlistMessage.textContent = error?.message || 'Something went wrong. Please try again.';
-        waitlistMessage.classList.add('newsletter__message--error');
-      } finally {
-        setTimeout(() => {
-          btn.textContent = originalText;
-        }, 1800);
-
-        btn.disabled = false;
-      }
-    });
-  }
-
-  // ---------- Delete Account Logic ----------
-  initDeleteAccount();
 }
 
 function initDeleteAccount() {
-  const tabInstantBtn = document.getElementById('tabInstantBtn');
-  const tabRequestBtn = document.getElementById('tabRequestBtn');
-  const tabInstant = document.getElementById('tabInstant');
-  const tabRequest = document.getElementById('tabRequest');
+  const instantButton = document.getElementById('tabInstantBtn');
+  const requestButton = document.getElementById('tabRequestBtn');
+  const instantTab = document.getElementById('tabInstant');
+  const requestTab = document.getElementById('tabRequest');
+  if (!instantButton || !requestButton || !instantTab || !requestTab) return;
+  const switchTab = (showInstant) => {
+    instantButton.classList.toggle('active', showInstant);
+    requestButton.classList.toggle('active', !showInstant);
+    instantButton.setAttribute('aria-selected', String(showInstant));
+    requestButton.setAttribute('aria-selected', String(!showInstant));
+    instantTab.classList.toggle('active', showInstant);
+    requestTab.classList.toggle('active', !showInstant);
+  };
+  instantButton.addEventListener('click', () => switchTab(true));
+  requestButton.addEventListener('click', () => switchTab(false));
+
   const instantForm = document.getElementById('instantDeleteForm');
   const requestForm = document.getElementById('requestDeleteForm');
   const successScreen = document.getElementById('successScreen');
-  const successMessageText = document.getElementById('successMessageText');
-  const successRefBadge = document.getElementById('successRefBadge');
+  const successMessage = document.getElementById('successMessageText');
+  const referenceBadge = document.getElementById('successRefBadge');
 
-  if (!tabInstantBtn || !tabRequestBtn) return;
-
-  tabInstantBtn.addEventListener('click', () => {
-    tabInstantBtn.classList.add('active');
-    tabInstantBtn.setAttribute('aria-selected', 'true');
-    tabRequestBtn.classList.remove('active');
-    tabRequestBtn.setAttribute('aria-selected', 'false');
-
-    tabInstant.classList.add('active');
-    tabRequest.classList.remove('active');
+  instantForm?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const email = document.getElementById('instantEmail').value.trim();
+    const password = document.getElementById('instantPassword').value;
+    const confirmed = document.getElementById('instantConfirmCheck').checked;
+    const submit = document.getElementById('instantSubmitBtn');
+    const error = document.getElementById('instantAlertError');
+    error.style.display = 'none';
+    if (!confirmed) {
+      error.textContent = 'Please confirm that you understand account deletion is permanent.';
+      error.style.display = 'block';
+      return;
+    }
+    submit.disabled = true;
+    submit.textContent = 'Processing deletion…';
+    try {
+      const response = await fetch('/api/account/delete', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, password }) });
+      const data = await response.json();
+      if (!response.ok || !data.success) throw new Error(data.message || 'Failed to delete account. Please check your credentials.');
+      document.querySelector('.tab-nav').style.display = 'none';
+      instantTab.style.display = 'none';
+      requestTab.style.display = 'none';
+      successMessage.textContent = data.message || 'Your account and personal data have been deleted.';
+      successScreen.style.display = 'block';
+    } catch (err) {
+      error.textContent = err.message;
+      error.style.display = 'block';
+      submit.disabled = false;
+      submit.textContent = 'Delete my account now';
+    }
   });
 
-  tabRequestBtn.addEventListener('click', () => {
-    tabRequestBtn.classList.add('active');
-    tabRequestBtn.setAttribute('aria-selected', 'true');
-    tabInstantBtn.classList.remove('active');
-    tabInstantBtn.setAttribute('aria-selected', 'false');
-
-    tabRequest.classList.add('active');
-    tabInstant.classList.remove('active');
+  requestForm?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const email = document.getElementById('requestEmail').value.trim();
+    const reason = document.getElementById('requestReason').value;
+    const notes = document.getElementById('requestNotes').value.trim();
+    const submit = document.getElementById('requestSubmitBtn');
+    const error = document.getElementById('requestAlertError');
+    error.style.display = 'none';
+    submit.disabled = true;
+    submit.textContent = 'Submitting request…';
+    try {
+      const response = await fetch('/api/account/request-deletion', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, reason, notes }) });
+      const data = await response.json();
+      if (!response.ok || !data.success) throw new Error(data.message || 'Failed to submit deletion request.');
+      document.querySelector('.tab-nav').style.display = 'none';
+      instantTab.style.display = 'none';
+      requestTab.style.display = 'none';
+      successMessage.textContent = data.message || 'Account deletion request received.';
+      if (data.referenceId) {
+        referenceBadge.textContent = `Reference code: ${data.referenceId}`;
+        referenceBadge.style.display = 'inline-block';
+      }
+      successScreen.style.display = 'block';
+    } catch (err) {
+      error.textContent = err.message;
+      error.style.display = 'block';
+      submit.disabled = false;
+      submit.textContent = 'Submit account deletion request';
+    }
   });
-
-  if (instantForm) {
-    instantForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const email = document.getElementById('instantEmail').value.trim();
-      const password = document.getElementById('instantPassword').value;
-      const confirmCheck = document.getElementById('instantConfirmCheck').checked;
-      const submitBtn = document.getElementById('instantSubmitBtn');
-      const alertError = document.getElementById('instantAlertError');
-
-      alertError.style.display = 'none';
-
-      if (!confirmCheck) {
-        alertError.textContent = 'Please confirm that you understand account deletion is permanent.';
-        alertError.style.display = 'block';
-        return;
-      }
-
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = '<span>Processing Deletion...</span>';
-
-      try {
-        const response = await fetch('/api/account/delete', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, password })
-        });
-
-        const data = await response.json();
-
-        if (!response.ok || !data.success) {
-          throw new Error(data.message || 'Failed to delete account. Please check your credentials.');
-        }
-
-        // Show Success Screen
-        document.querySelector('.tab-nav').style.display = 'none';
-        tabInstant.style.display = 'none';
-        tabRequest.style.display = 'none';
-        successMessageText.textContent = data.message || 'Your account and personal data have been deleted.';
-        successScreen.style.display = 'block';
-      } catch (err) {
-        alertError.textContent = err.message;
-        alertError.style.display = 'block';
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = '<i data-lucide="circle-x" class="icon-inline"></i><span>Delete My Account Now</span>';
-      }
-    });
-  }
-
-  if (requestForm) {
-    requestForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const email = document.getElementById('requestEmail').value.trim();
-      const reason = document.getElementById('requestReason').value;
-      const notes = document.getElementById('requestNotes').value.trim();
-      const submitBtn = document.getElementById('requestSubmitBtn');
-      const alertError = document.getElementById('requestAlertError');
-
-      alertError.style.display = 'none';
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = '<span>Submitting Request...</span>';
-
-      try {
-        const response = await fetch('/api/account/request-deletion', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, reason, notes })
-        });
-
-        const data = await response.json();
-
-        if (!response.ok || !data.success) {
-          throw new Error(data.message || 'Failed to submit deletion request.');
-        }
-
-        // Show Success Screen
-        document.querySelector('.tab-nav').style.display = 'none';
-        tabInstant.style.display = 'none';
-        tabRequest.style.display = 'none';
-        successMessageText.textContent = data.message || 'Account deletion request received.';
-        if (data.referenceId) {
-          successRefBadge.textContent = `Reference Code: ${data.referenceId}`;
-          successRefBadge.style.display = 'inline-block';
-        }
-        successScreen.style.display = 'block';
-      } catch (err) {
-        alertError.textContent = err.message;
-        alertError.style.display = 'block';
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = '<i data-lucide="arrow-right" class="icon-inline"></i><span>Submit Account Deletion Request</span>';
-      }
-    });
-  }
 }
 
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initApp);
-} else {
-  initApp();
+function initApp() {
+  initNavigation();
+  initReveal();
+  initWaitlist();
+  initDeleteAccount();
 }
+
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initApp);
+else initApp();

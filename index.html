@@ -1,476 +1,236 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="BorderGuide helps travelers cross borders faster with visa requirements by country, customs rules, and step-by-step travel document checklists." />
-  <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://borderguide.app/" />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://borderguide.app/" />
-  <meta property="og:title" content="BorderGuide App | Visa Requirements, Border Checklist & Customs Guide" />
-  <meta property="og:description" content="Check visa requirements, customs allowances, and travel documents in one place. Join the BorderGuide waitlist for early TestFlight access." />
-  <meta property="og:site_name" content="BorderGuide" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="BorderGuide App | Visa Requirements, Border Checklist & Customs Guide" />
-  <meta name="twitter:description" content="Cross borders with confidence using route-specific checklists, visa guidance, and customs rules." />
-  <title>BorderGuide App | Visa Requirements, Border Checklist & Customs Guide</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <style>
-    /* Critical inline CSS — prevents white flash on load */
-    html, body {
-      background-color: #0C110E;
-      color: #c9d1d9;
-      margin: 0;
-      padding: 0;
-    }
-  </style>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="BorderGuide helps students discover programs and scholarships, then move abroad with one clear, guided plan." />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://borderguide.app/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://borderguide.app/" />
+    <meta property="og:title" content="BorderGuide — Your study abroad journey, made clear" />
+    <meta property="og:description" content="Find programs and scholarships, organise applications, and prepare every step of your move abroad." />
+    <meta property="og:site_name" content="BorderGuide" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <title>BorderGuide — Your study abroad journey, made clear</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet" />
+    <style>html,body{background:#f7f7f5;color:#111;margin:0}</style>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
 
-  <!-- ===================== NAVBAR ===================== -->
-  <nav class="navbar" id="navbar">
-    <div class="container navbar__inner">
-      <a href="#" class="navbar__logo">
-        <span class="logo-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none"><defs><linearGradient id="navPinGrad" x1="24" y1="2" x2="24" y2="46" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#34D399"/><stop offset="100%" stop-color="#1F7A48"/></linearGradient><linearGradient id="navStarGrad" x1="24" y1="10" x2="24" y2="32" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#0C110E"/><stop offset="100%" stop-color="#1A2A1E"/></linearGradient></defs><path d="M24 4C15.716 4 9 10.268 9 18c0 5.4 3.6 11.4 7.8 16.2 2.1 2.4 4.2 4.4 5.7 5.8.6.6 1.2 1 1.5 1.3.3-.3.9-.7 1.5-1.3 1.5-1.4 3.6-3.4 5.7-5.8C35.4 29.4 39 23.4 39 18 39 10.268 32.284 4 24 4Z" fill="url(#navPinGrad)"/><circle cx="24" cy="18" r="8" fill="#0C110E" opacity="0.4"/><path d="M24 10L27.5 18L24 26L20.5 18Z" fill="url(#navStarGrad)"/><path d="M18 18L24 14.5L30 18L24 21.5Z" fill="url(#navStarGrad)" opacity="0.7"/></svg></span>
-        <span class="logo-text">Border<span class="logo-accent">Guide</span></span>
-      </a>
-      <div class="navbar__pill" id="navPill">
-        <div class="navbar__pill-indicator" id="pillIndicator"></div>
-        <ul class="navbar__links" id="navLinks">
-          <li><a href="#guides" class="navbar__link">Guides</a></li>
-          <li><a href="#documents" class="navbar__link">Documents</a></li>
-          <li><a href="#customs" class="navbar__link">Customs</a></li>
-          <li><a href="#tips" class="navbar__link">Tips</a></li>
-          <li><a href="#faq" class="navbar__link">FAQ</a></li>
-        </ul>
-      </div>
-      <a href="#newsletter" class="navbar__cta">
-        <i data-lucide="arrow-right" class="icon-inline-sm"></i>
-        <span>Join Waitlist</span>
-      </a>
-      <button class="navbar__toggle" id="navToggle" aria-label="Toggle navigation">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </nav>
-
-  <!-- ===================== HERO ===================== -->
-  <header class="hero" id="hero">
-    <canvas class="hero__particles" id="heroParticles"></canvas>
-    <div class="hero__grid-overlay"></div>
-    <div class="hero__bg-shapes">
-      <div class="shape shape--1"></div>
-      <div class="shape shape--2"></div>
-      <div class="shape shape--3"></div>
-    </div>
-    <div class="container hero__content">
-      <p class="hero__tag"><i data-lucide="plane" class="icon-inline"></i> Visa Requirements, Customs Rules, and Document Checklists</p>
-      <h1 class="hero__title">Border Crossing<br /><span class="gradient-text">Made Predictable</span></h1>
-      <p class="hero__subtitle">BorderGuide helps you prepare faster with country-specific visa rules, customs limits, and travel document checklists so you can avoid delays at immigration.</p>
-      <div class="hero__actions">
-        <a href="#newsletter" class="btn btn--primary">Join iOS Waitlist</a>
-        <a href="#guides" class="btn btn--outline">See How It Works</a>
-      </div>
-      <div class="hero__stats">
-        <div class="stat">
-          <span class="stat__number" data-target="195">195</span>
-          <span class="stat__label">Countries Covered</span>
-        </div>
-        <div class="stat">
-          <span class="stat__number" data-target="1200">1,200</span><span class="stat__suffix">+</span>
-          <span class="stat__label">Border Crossings</span>
-        </div>
-        <div class="stat">
-          <span class="stat__number" data-target="50">50</span><span class="stat__suffix">K+</span>
-          <span class="stat__label">Happy Travellers</span>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <!-- ===================== GUIDES ===================== -->
-  <section class="section guides" id="guides">
-    <div class="container">
-      <div class="section__header">
-        <p class="section__tag">Visa Guide by Region</p>
-        <h2 class="section__title">Country &amp; Region Entry Requirements</h2>
-        <p class="section__subtitle">Search practical border guidance by destination, including visa pathways, entry conditions, and transit notes.</p>
-      </div>
-      <div class="guides__grid">
-
-        <article class="guide-card" data-region="europe">
-          <div class="guide-card__icon"><i data-lucide="landmark"></i></div>
-          <h3 class="guide-card__title">Europe &amp; Schengen</h3>
-          <p class="guide-card__desc">Navigate the Schengen Area, understand the 90/180-day rule, and learn about EU entry requirements.</p>
-          <ul class="guide-card__tags">
-            <li>Schengen Visa</li>
-            <li>ETIAS</li>
-            <li>Free Movement</li>
-          </ul>
-          <a href="#" class="guide-card__link">Read Guide <i data-lucide="arrow-right" class="icon-inline-sm"></i></a>
-        </article>
-
-        <article class="guide-card" data-region="americas">
-          <div class="guide-card__icon"><i data-lucide="map-pin"></i></div>
-          <h3 class="guide-card__title">The Americas</h3>
-          <p class="guide-card__desc">US ESTA &amp; visa waiver programs, Canadian eTA, and Latin American entry requirements explained.</p>
-          <ul class="guide-card__tags">
-            <li>ESTA</li>
-            <li>eTA Canada</li>
-            <li>Land Borders</li>
-          </ul>
-          <a href="#" class="guide-card__link">Read Guide <i data-lucide="arrow-right" class="icon-inline-sm"></i></a>
-        </article>
-
-        <article class="guide-card" data-region="asia">
-          <div class="guide-card__icon"><i data-lucide="compass"></i></div>
-          <h3 class="guide-card__title">Asia &amp; Pacific</h3>
-          <p class="guide-card__desc">Visa-on-arrival countries, e-visa systems, and special requirements for the Asia-Pacific region.</p>
-          <ul class="guide-card__tags">
-            <li>Visa on Arrival</li>
-            <li>E-Visa</li>
-            <li>APEC Card</li>
-          </ul>
-          <a href="#" class="guide-card__link">Read Guide <i data-lucide="arrow-right" class="icon-inline-sm"></i></a>
-        </article>
-
-        <article class="guide-card" data-region="africa">
-          <div class="guide-card__icon"><i data-lucide="map"></i></div>
-          <h3 class="guide-card__title">Africa</h3>
-          <p class="guide-card__desc">AfCFTA implications, regional bloc entry rules, yellow fever requirements, and border post information.</p>
-          <ul class="guide-card__tags">
-            <li>AfCFTA</li>
-            <li>Yellow Fever</li>
-            <li>ECOWAS</li>
-          </ul>
-          <a href="#" class="guide-card__link">Read Guide <i data-lucide="arrow-right" class="icon-inline-sm"></i></a>
-        </article>
-
-        <article class="guide-card" data-region="middle-east">
-          <div class="guide-card__icon"><i data-lucide="building-2"></i></div>
-          <h3 class="guide-card__title">Middle East</h3>
-          <p class="guide-card__desc">GCC visa policies, transit visas for hub airports, and essential cultural guidelines for travellers.</p>
-          <ul class="guide-card__tags">
-            <li>GCC Visa</li>
-            <li>Transit</li>
-            <li>E-Gates</li>
-          </ul>
-          <a href="#" class="guide-card__link">Read Guide <i data-lucide="arrow-right" class="icon-inline-sm"></i></a>
-        </article>
-
-        <article class="guide-card" data-region="oceania">
-          <div class="guide-card__icon"><i data-lucide="waves"></i></div>
-          <h3 class="guide-card__title">Oceania</h3>
-          <p class="guide-card__desc">Australia ETA, New Zealand NZeTA, biosecurity declarations, and Pacific island entry rules.</p>
-          <ul class="guide-card__tags">
-            <li>ETA</li>
-            <li>NZeTA</li>
-            <li>Biosecurity</li>
-          </ul>
-          <a href="#" class="guide-card__link">Read Guide <i data-lucide="arrow-right" class="icon-inline-sm"></i></a>
-        </article>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================== DOCUMENTS ===================== -->
-  <section class="section documents" id="documents">
-    <div class="container">
-      <div class="section__header">
-        <p class="section__tag">Travel Document Checklist</p>
-        <h2 class="section__title">Required Documents Before You Fly</h2>
-        <p class="section__subtitle">Use this checklist to avoid missing paperwork, denied boarding, or border entry delays.</p>
-      </div>
-      <div class="documents__grid">
-
-        <div class="doc-card">
-          <div class="doc-card__icon"><i data-lucide="book-open"></i></div>
-          <h3 class="doc-card__title">Valid Passport</h3>
-          <p class="doc-card__desc">Most countries require at least 6 months validity beyond your travel date. Check renewal timelines early.</p>
-        </div>
-
-        <div class="doc-card">
-          <div class="doc-card__icon"><i data-lucide="clipboard-list"></i></div>
-          <h3 class="doc-card__title">Visa / Entry Permit</h3>
-          <p class="doc-card__desc">Research if you need a pre-approved visa, e-visa, or can obtain one on arrival at your destination.</p>
-        </div>
-
-        <div class="doc-card">
-          <div class="doc-card__icon"><i data-lucide="heart-pulse"></i></div>
-          <h3 class="doc-card__title">Health Certificates</h3>
-          <p class="doc-card__desc">Vaccination records, yellow fever certificates, and health declarations — some are mandatory at certain borders.</p>
-        </div>
-
-        <div class="doc-card">
-          <div class="doc-card__icon"><i data-lucide="shield-check"></i></div>
-          <h3 class="doc-card__title">Travel Insurance</h3>
-          <p class="doc-card__desc">Mandatory for Schengen visas and highly recommended everywhere. Covers medical, cancellation, and lost luggage.</p>
-        </div>
-
-        <div class="doc-card">
-          <div class="doc-card__icon"><i data-lucide="hotel"></i></div>
-          <h3 class="doc-card__title">Accommodation Proof</h3>
-          <p class="doc-card__desc">Hotel reservations, invitation letters, or proof of address. Immigration officers may request these at entry.</p>
-        </div>
-
-        <div class="doc-card">
-          <div class="doc-card__icon"><i data-lucide="wallet"></i></div>
-          <h3 class="doc-card__title">Financial Proof</h3>
-          <p class="doc-card__desc">Bank statements, sponsorship letters, or proof of sufficient funds for your stay. Requirements vary by country.</p>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================== CUSTOMS ===================== -->
-  <section class="section customs" id="customs">
-    <div class="container">
-      <div class="section__header">
-        <p class="section__tag">Know Before You Go</p>
-        <h2 class="section__title">Customs Rules &amp; Border Declarations</h2>
-        <p class="section__subtitle">Avoid fines and delays by understanding duty-free limits, declaration rules, and restricted items before arrival.</p>
-      </div>
-      <div class="customs__content">
-
-        <div class="customs__item">
-          <div class="customs__badge customs__badge--green"><i data-lucide="circle-check" class="icon-inline"></i> Usually Allowed</div>
-          <ul class="customs__list">
-            <li>Personal clothing and toiletries</li>
-            <li>Prescription medication (with documentation)</li>
-            <li>Electronics for personal use</li>
-            <li>Gifts under duty-free limits</li>
-            <li>Limited alcohol &amp; tobacco within allowances</li>
-          </ul>
-        </div>
-
-        <div class="customs__item">
-          <div class="customs__badge customs__badge--amber"><i data-lucide="alert-triangle" class="icon-inline"></i> Declare Required</div>
-          <ul class="customs__list">
-            <li>Cash exceeding €10,000 / $10,000 equivalent</li>
-            <li>Commercial goods or samples</li>
-            <li>Certain foods, plants, and animal products</li>
-            <li>Valuable items (jewellery, art, antiques)</li>
-            <li>Firearms and ammunition (with permits)</li>
-          </ul>
-        </div>
-
-        <div class="customs__item">
-          <div class="customs__badge customs__badge--red"><i data-lucide="circle-x" class="icon-inline"></i> Prohibited</div>
-          <ul class="customs__list">
-            <li>Illegal narcotics and substances</li>
-            <li>Counterfeit goods and pirated materials</li>
-            <li>Endangered wildlife products (ivory, skins)</li>
-            <li>Certain cultural artefacts without export permits</li>
-            <li>Weapons without proper documentation</li>
-          </ul>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================== TIPS ===================== -->
-  <section class="section tips" id="tips">
-    <div class="container">
-      <div class="section__header">
-        <p class="section__tag">Expert Advice</p>
-        <h2 class="section__title">Border Crossing Tips That Save Time</h2>
-        <p class="section__subtitle">Follow tested travel prep habits used by frequent flyers, students, and relocation travelers.</p>
-      </div>
-      <div class="tips__grid">
-
-        <div class="tip-card">
-          <span class="tip-card__number">01</span>
-          <h3 class="tip-card__title">Arrive Early</h3>
-          <p class="tip-card__desc">Border queues can be unpredictable. Arrive with plenty of buffer time, especially at land crossings and during peak seasons.</p>
-        </div>
-
-        <div class="tip-card">
-          <span class="tip-card__number">02</span>
-          <h3 class="tip-card__title">Keep Documents Accessible</h3>
-          <p class="tip-card__desc">Have your passport, boarding pass, visa, and any required forms ready in a travel wallet. Don't bury them in luggage.</p>
-        </div>
-
-        <div class="tip-card">
-          <span class="tip-card__number">03</span>
-          <h3 class="tip-card__title">Know the Local Laws</h3>
-          <p class="tip-card__desc">What's legal at home may not be abroad. Research restricted items, dress codes, and photography rules before you travel.</p>
-        </div>
-
-        <div class="tip-card">
-          <span class="tip-card__number">04</span>
-          <h3 class="tip-card__title">Use E-Gates When Available</h3>
-          <p class="tip-card__desc">Many airports offer automated passport control. Check eligibility — it can save significant time compared to manual queues.</p>
-        </div>
-
-        <div class="tip-card">
-          <span class="tip-card__number">05</span>
-          <h3 class="tip-card__title">Carry Emergency Contacts</h3>
-          <p class="tip-card__desc">Have your embassy's local number, travel insurance hotline, and an emergency contact saved offline and printed.</p>
-        </div>
-
-        <div class="tip-card">
-          <span class="tip-card__number">06</span>
-          <h3 class="tip-card__title">Stay Calm &amp; Polite</h3>
-          <p class="tip-card__desc">Border officers process thousands daily. Be patient, answer questions clearly, and maintain a respectful demeanour.</p>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================== FAQ ===================== -->
-  <section class="section faq" id="faq">
-    <div class="container">
-      <div class="section__header">
-        <p class="section__tag">Common Questions</p>
-        <h2 class="section__title">Visa &amp; Border Crossing FAQs</h2>
-      </div>
-      <div class="faq__list">
-
-        <details class="faq__item">
-          <summary class="faq__question">How far in advance should I apply for a visa?</summary>
-          <p class="faq__answer">It depends on the country, but generally 4–8 weeks before your travel date. Some countries like the US or UK can take 3+ months during peak periods. Always check the specific embassy processing times.</p>
-        </details>
-
-        <details class="faq__item">
-          <summary class="faq__question">What is the 90/180-day Schengen rule?</summary>
-          <p class="faq__answer">Non-EU nationals can stay in the Schengen Area for a maximum of 90 days within any 180-day rolling period. This applies across all 27 Schengen countries combined — not per country.</p>
-        </details>
-
-        <details class="faq__item">
-          <summary class="faq__question">Can I cross a border with an expired passport?</summary>
-          <p class="faq__answer">Generally no. Most countries require your passport to be valid for at least 6 months beyond your date of entry. Some bilateral agreements allow shorter validity, but it's safest to renew early.</p>
-        </details>
-
-        <details class="faq__item">
-          <summary class="faq__question">What happens if I overstay my visa?</summary>
-          <p class="faq__answer">Overstaying can result in fines, deportation, entry bans (often 1–10 years), and difficulties with future visa applications worldwide. Always track your permitted stay dates carefully.</p>
-        </details>
-
-        <details class="faq__item">
-          <summary class="faq__question">Do I need a visa for transit/layovers?</summary>
-          <p class="faq__answer">It depends on the country and your nationality. Some countries require a transit visa even if you don't leave the airport. The US notably requires this, while many EU hubs do not for short connections.</p>
-        </details>
-
-        <details class="faq__item">
-          <summary class="faq__question">What is a visa-on-arrival vs. an e-visa?</summary>
-          <p class="faq__answer">A visa-on-arrival is obtained at the port of entry — you queue and pay at the border. An e-visa is applied for online beforehand and approved digitally. E-visas are generally faster at the border since they're pre-approved.</p>
-        </details>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================== NEWSLETTER ===================== -->
-  <section class="section newsletter" id="newsletter">
-    <div class="container">
-      <div class="newsletter__inner">
-        <h2 class="newsletter__title">Join the BorderGuide Waitlist</h2>
-        <p class="newsletter__desc">Get early TestFlight access, launch pricing, and weekly updates on visa policy changes, document requirements, and border advisories.</p>
-        <form class="newsletter__form" id="newsletterForm">
-          <input id="waitlistEmail" name="email" type="email" class="newsletter__input" placeholder="Enter your email address" autocomplete="email" required />
-          <button type="submit" class="btn btn--primary">Join Waitlist</button>
-        </form>
-        <p class="newsletter__message" id="waitlistMessage" aria-live="polite"></p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================== FOOTER ===================== -->
-  <footer class="footer">
-    <div class="container footer__inner">
-      <div class="footer__brand">
-        <a href="#" class="navbar__logo">
-          <span class="logo-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none"><defs><linearGradient id="ftPinGrad" x1="24" y1="2" x2="24" y2="46" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#34D399"/><stop offset="100%" stop-color="#1F7A48"/></linearGradient><linearGradient id="ftStarGrad" x1="24" y1="10" x2="24" y2="32" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#0C110E"/><stop offset="100%" stop-color="#1A2A1E"/></linearGradient></defs><path d="M24 4C15.716 4 9 10.268 9 18c0 5.4 3.6 11.4 7.8 16.2 2.1 2.4 4.2 4.4 5.7 5.8.6.6 1.2 1 1.5 1.3.3-.3.9-.7 1.5-1.3 1.5-1.4 3.6-3.4 5.7-5.8C35.4 29.4 39 23.4 39 18 39 10.268 32.284 4 24 4Z" fill="url(#ftPinGrad)"/><circle cx="24" cy="18" r="8" fill="#0C110E" opacity="0.4"/><path d="M24 10L27.5 18L24 26L20.5 18Z" fill="url(#ftStarGrad)"/><path d="M18 18L24 14.5L30 18L24 21.5Z" fill="url(#ftStarGrad)" opacity="0.7"/></svg></span>
-          <span class="logo-text">Border<span class="logo-accent">Guide</span></span>
+    <nav class="navbar" id="navbar" aria-label="Primary navigation">
+      <div class="container navbar__inner">
+        <a href="#top" class="brand" aria-label="BorderGuide home">
+          <span class="brand__mark" aria-hidden="true">B</span>
+          <span>BorderGuide</span>
         </a>
-        <p class="footer__tagline">BorderGuide is your practical border crossing companion for visa requirements, customs rules, and travel document preparation.</p>
-      </div>
-      <div class="footer__links">
-        <div class="footer__col">
-          <h4>Guides</h4>
-          <a href="#">Europe</a>
-          <a href="#">Americas</a>
-          <a href="#">Asia &amp; Pacific</a>
+        <div class="navbar__links" id="navMenu">
+          <a href="#journey">Your journey</a>
+          <a href="#discover">Discover</a>
+          <a href="#companion">How it works</a>
+          <a href="#beyond-study">Travel tools</a>
         </div>
-        <div class="footer__col">
-          <h4>Resources</h4>
-          <a href="#">Document Checklist</a>
-          <a href="#">Customs Rules</a>
-          <a href="#">Travel Tips</a>
-        </div>
-        <div class="footer__col">
-          <h4>Company</h4>
-          <a href="#">About Us</a>
-          <a href="#">Contact</a>
-          <a href="/privacy-policy.html">Privacy Policy</a>
-          <a href="/delete-account.html">Delete Account</a>
-        </div>
+        <a class="button button--dark navbar__cta" href="#waitlist">Get early access <i data-lucide="arrow-up-right"></i></a>
+        <button class="navbar__toggle" id="navToggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="navMenu">
+          <i data-lucide="menu"></i>
+        </button>
       </div>
-      <div class="footer__bottom">
-        <p>&copy; 2026 BorderGuide. All rights reserved. Information is provided for guidance only — always verify with official sources.</p>
-      </div>
-    </div>
-  </footer>
+    </nav>
 
-  <script type="module" src="/src/main.js"></script>
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "BorderGuide",
-      "applicationCategory": "TravelApplication",
-      "operatingSystem": "iOS",
-      "description": "BorderGuide helps travelers cross borders with country-specific visa requirements, customs guidance, and travel document checklists.",
-      "url": "https://borderguide.app/"
-    }
-  </script>
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "How far in advance should I apply for a visa?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "It depends on the destination, but generally 4 to 8 weeks before travel. Some countries can take 3 months or more during peak periods."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What is the 90/180-day Schengen rule?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Non-EU nationals can stay in the Schengen Area for 90 days within any 180-day rolling period across all Schengen countries combined."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Can I cross a border with an expired passport?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Usually no. Most countries require at least 6 months of passport validity beyond your date of entry."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Do I need a visa for transit or layovers?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "It depends on your nationality and transit country. Some countries require transit visas even when you do not leave the airport."
-          }
-        }
-      ]
-    }
-  </script>
-</body>
+    <main id="main">
+      <header class="hero" id="top">
+        <div class="container hero__grid">
+          <div class="hero__copy reveal">
+            <p class="eyebrow"><span></span> Built for your next chapter</p>
+            <h1>From first search to <em>first day abroad.</em></h1>
+            <p class="hero__lede">Find the right program, uncover scholarships, and move through every application and relocation step with one calm, connected plan.</p>
+            <div class="hero__actions">
+              <a class="button button--dark" href="#waitlist">Start your journey <i data-lucide="arrow-right"></i></a>
+              <a class="button button--text" href="#journey">See how it works <i data-lucide="move-down"></i></a>
+            </div>
+            <div class="hero__proof" aria-label="What BorderGuide includes">
+              <div><strong>01</strong><span>Program and scholarship discovery</span></div>
+              <div><strong>02</strong><span>A guided move-abroad checklist</span></div>
+            </div>
+          </div>
+
+          <div class="phone-stage reveal" aria-label="Preview of the BorderGuide mobile app">
+            <div class="orbit orbit--one"></div>
+            <div class="orbit orbit--two"></div>
+            <div class="phone">
+              <div class="phone__bar"><span>9:41</span><span class="phone__island"></span><span>● ●</span></div>
+              <div class="phone__header">
+                <div><strong>BorderGuide</strong><small>PLAN WITH CLARITY</small></div>
+                <span class="phone__avatar">T</span>
+              </div>
+              <div class="phone__hero">
+                <div class="phone__hero-grid"></div>
+                <span>STUDY ABROAD</span>
+                <strong>Your future deserves a clear plan.</strong>
+                <p>Discover, apply, prepare, and arrive with confidence.</p>
+              </div>
+              <small class="phone__label">YOUR NEXT STEP</small>
+              <div class="phone__next">
+                <span class="phone__next-icon"><i data-lucide="arrow-right"></i></span>
+                <div><strong>Complete your study profile</strong><small>Get matches made for your goals.</small><span class="phone__progress"><i></i></span></div>
+              </div>
+              <div class="phone__mini-grid">
+                <div><i data-lucide="book-open"></i><span>Programs</span></div>
+                <div><i data-lucide="graduation-cap"></i><span>Scholarships</span></div>
+              </div>
+            </div>
+            <div class="float-card float-card--match"><i data-lucide="sparkles"></i><div><small>NEW MATCH</small><strong>7 scholarships</strong></div></div>
+            <div class="float-card float-card--progress"><span>68%</span><div><small>APPLICATION</small><strong>On track</strong></div></div>
+          </div>
+        </div>
+      </header>
+
+      <section class="signal-strip" aria-label="BorderGuide focus areas">
+        <div class="container signal-strip__inner">
+          <span>PROGRAMS</span><i></i><span>SCHOLARSHIPS</span><i></i><span>APPLICATIONS</span><i></i><span>VISAS</span><i></i><span>YOUR MOVE</span>
+        </div>
+      </section>
+
+      <section class="section journey" id="journey">
+        <div class="container">
+          <div class="section-heading reveal">
+            <p class="eyebrow"><span></span> One connected journey</p>
+            <h2>Know what to do now.<br />Know what comes next.</h2>
+            <p>BorderGuide turns an overwhelming process into a practical sequence—personal to your goals, deadlines, and destination.</p>
+          </div>
+          <div class="journey__steps">
+            <article class="journey-card reveal">
+              <span class="journey-card__number">01</span>
+              <i data-lucide="sliders-horizontal"></i>
+              <h3>Tell us your goal</h3>
+              <p>Build a simple study profile around your course, budget, timing, and preferred destinations.</p>
+            </article>
+            <article class="journey-card reveal">
+              <span class="journey-card__number">02</span>
+              <i data-lucide="search"></i>
+              <h3>Discover your options</h3>
+              <p>Explore programs, universities, and scholarship opportunities that fit your profile.</p>
+            </article>
+            <article class="journey-card journey-card--dark reveal">
+              <span class="journey-card__number">03</span>
+              <i data-lucide="list-checks"></i>
+              <h3>Apply with clarity</h3>
+              <p>Track requirements, documents, deadlines, and the next best action in one place.</p>
+            </article>
+            <article class="journey-card reveal">
+              <span class="journey-card__number">04</span>
+              <i data-lucide="plane-takeoff"></i>
+              <h3>Prepare your move</h3>
+              <p>Work through visas, accommodation, money, health, arrival, and local-life essentials.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section discover" id="discover">
+        <div class="container discover__layout">
+          <div class="discover__copy reveal">
+            <p class="eyebrow eyebrow--light"><span></span> Explore by need</p>
+            <h2>Better choices begin with better context.</h2>
+            <p>Compare what matters without opening a dozen disconnected tabs. Every option sits inside the journey it belongs to.</p>
+            <a class="button button--light" href="#waitlist">Explore with BorderGuide <i data-lucide="arrow-right"></i></a>
+          </div>
+          <div class="discover__cards">
+            <article class="discover-card reveal">
+              <span><i data-lucide="book-open"></i></span>
+              <div><small>FIND YOUR FIT</small><h3>Programs</h3><p>Courses, requirements, fees, and official application routes.</p></div>
+              <i data-lucide="arrow-up-right"></i>
+            </article>
+            <article class="discover-card reveal">
+              <span><i data-lucide="building-2"></i></span>
+              <div><small>RESEARCH DEEPLY</small><h3>Universities</h3><p>Institution details, locations, support, and study experience.</p></div>
+              <i data-lucide="arrow-up-right"></i>
+            </article>
+            <article class="discover-card reveal">
+              <span><i data-lucide="graduation-cap"></i></span>
+              <div><small>FUND YOUR PLAN</small><h3>Scholarships</h3><p>Verified cycles, eligibility, benefits, and deadline tracking.</p></div>
+              <i data-lucide="arrow-up-right"></i>
+            </article>
+            <article class="discover-card reveal">
+              <span><i data-lucide="map"></i></span>
+              <div><small>PLAN REAL LIFE</small><h3>Country guides</h3><p>Visas, costs, housing, culture, and practical arrival advice.</p></div>
+              <i data-lucide="arrow-up-right"></i>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section companion" id="companion">
+        <div class="container companion__grid">
+          <div class="dashboard-preview reveal">
+            <div class="dashboard-preview__top"><span>My study plan</span><i data-lucide="more-horizontal"></i></div>
+            <div class="dashboard-preview__progress">
+              <div><small>OVERALL PROGRESS</small><strong>68%</strong></div>
+              <span><i></i></span>
+            </div>
+            <div class="next-task"><span><i data-lucide="file-check-2"></i></span><div><small>NEXT UP</small><strong>Upload your academic transcript</strong><p>Required for 3 applications</p></div><i data-lucide="chevron-right"></i></div>
+            <div class="task-list">
+              <div class="is-done"><i data-lucide="circle-check"></i><span>Study profile completed</span><small>DONE</small></div>
+              <div><i data-lucide="circle"></i><span>Shortlist your programs</span><small>4 OF 6</small></div>
+              <div><i data-lucide="circle"></i><span>Prepare visa documents</span><small>UP NEXT</small></div>
+            </div>
+          </div>
+          <div class="companion__copy reveal">
+            <p class="eyebrow"><span></span> Your plan, always moving</p>
+            <h2>A guide that keeps the whole journey connected.</h2>
+            <p>Your dashboard brings decisions, documents, deadlines, and progress together—so the next step is never buried.</p>
+            <ul>
+              <li><i data-lucide="check"></i><span><strong>Personal next steps</strong><small>See the one action that matters most right now.</small></span></li>
+              <li><i data-lucide="check"></i><span><strong>Application tracking</strong><small>Keep requirements and deadlines visible.</small></span></li>
+              <li><i data-lucide="check"></i><span><strong>Context-aware guidance</strong><small>Ask BorderGuide for help inside your current plan.</small></span></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section beyond" id="beyond-study">
+        <div class="container">
+          <div class="section-heading section-heading--split reveal">
+            <div><p class="eyebrow"><span></span> Beyond study</p><h2>Wherever life takes you, arrive prepared.</h2></div>
+            <p>Study is the starting point. BorderGuide’s broader travel and relocation tools remain close when your plans grow.</p>
+          </div>
+          <div class="beyond__grid">
+            <article class="beyond-card reveal"><span>01</span><i data-lucide="route"></i><h3>Trip planning</h3><p>Build a practical itinerary around your city, dates, interests, and budget.</p></article>
+            <article class="beyond-card reveal"><span>02</span><i data-lucide="stamp"></i><h3>Visa guidance</h3><p>Understand destination requirements and keep official sources close.</p></article>
+            <article class="beyond-card reveal"><span>03</span><i data-lucide="briefcase-business"></i><h3>Work relocation</h3><p>Organise the steps involved in moving for a new role or opportunity.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section waitlist" id="waitlist">
+        <div class="container waitlist__inner reveal">
+          <div>
+            <p class="eyebrow eyebrow--light"><span></span> Early access</p>
+            <h2>Your next chapter can feel clearer.</h2>
+            <p>Join the BorderGuide waitlist for product updates and early access.</p>
+          </div>
+          <form class="waitlist__form" id="newsletterForm">
+            <label for="waitlistEmail">Email address</label>
+            <div><input id="waitlistEmail" name="email" type="email" placeholder="you@example.com" autocomplete="email" required /><button type="submit">Join the waitlist <i data-lucide="arrow-right"></i></button></div>
+            <p class="newsletter__message" id="waitlistMessage" aria-live="polite"></p>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer__top">
+        <div><a href="#top" class="brand"><span class="brand__mark">B</span><span>BorderGuide</span></a><p>Plan with clarity. Move with confidence.</p></div>
+        <div class="footer__links"><a href="#journey">Your journey</a><a href="#discover">Discover</a><a href="/privacy-policy.html">Privacy</a><a href="/terms-of-use.html">Terms</a><a href="/delete-account.html">Delete account</a></div>
+      </div>
+      <div class="container footer__bottom"><span>© 2026 BorderGuide</span><span>Guidance should always be verified with official sources.</span></div>
+    </footer>
+
+    <script type="module" src="/src/main.js"></script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"BorderGuide","applicationCategory":"EducationalApplication","operatingSystem":"iOS, Android","description":"BorderGuide helps students discover programs and scholarships, manage applications, and prepare to move abroad.","url":"https://borderguide.app/"}</script>
+  </body>
 </html>
