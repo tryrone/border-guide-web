@@ -271,10 +271,11 @@ img, svg { display: block; max-width: 100%; }
   .phone-stage { min-height: 555px; transform: scale(.9); margin-block: -20px; }
   .phone-stage { overflow: hidden; }
   .phone { width: 280px; }
-  .float-card--match { right: -8%; }
-  .float-card--progress { left: -7%; }
-  .signal-strip__inner { justify-content: flex-start; overflow: hidden; }
-  .signal-strip span:nth-of-type(n+4), .signal-strip i:nth-of-type(n+4) { display: none; }
+  .float-card--match { right: 0; }
+  .float-card--progress { left: 0; }
+  .signal-strip__inner { justify-content: space-between; gap: clamp(6px, 2vw, 10px); overflow: hidden; }
+  .signal-strip span { font-size: 9px; letter-spacing: .12em; }
+  .signal-strip span:nth-of-type(n+4), .signal-strip i:nth-of-type(n+3) { display: none; }
   .section-heading h2, .discover__copy h2, .companion__copy h2, .waitlist h2 { font-size: 42px; }
   .journey__steps { grid-template-columns: 1fr; }
   .journey-card { min-height: 285px; }
