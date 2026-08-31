@@ -1,10 +1,8 @@
 import './style.css';
 import './legal.css';
-import { createIcons, ArrowLeft, ArrowRight, ArrowUpRight, BookOpen, BriefcaseBusiness, Building2, CalendarDays, Check, ChevronRight, Circle, CircleCheck, CircleX, CreditCard, FileCheck2, Files, GraduationCap, Info, ListChecks, Map, Menu, MoreHorizontal, MoveDown, PlaneTakeoff, Route, Search, Send, ShieldCheck, SlidersHorizontal, Sparkles, Stamp, Trash2, TriangleAlert, UserRound } from 'lucide';
+import { createIcons, Apple, ArrowLeft, ArrowRight, ArrowUpRight, BookOpen, BriefcaseBusiness, Building2, CalendarDays, Check, ChevronRight, Circle, CircleCheck, CircleX, CreditCard, FileCheck2, Files, GraduationCap, Info, ListChecks, Map, Menu, MoreHorizontal, MoveDown, PlaneTakeoff, Play, Route, Search, Send, ShieldCheck, SlidersHorizontal, Sparkles, Stamp, Trash2, TriangleAlert, UserRound } from 'lucide';
 
-const WAITLIST_API_URL = import.meta.env.VITE_WAITLIST_API_URL || '/api/waitlist';
-
-createIcons({ icons: { ArrowLeft, ArrowRight, ArrowUpRight, BookOpen, BriefcaseBusiness, Building2, CalendarDays, Check, ChevronRight, Circle, CircleCheck, CircleX, CreditCard, FileCheck2, Files, GraduationCap, Info, ListChecks, Map, Menu, MoreHorizontal, MoveDown, PlaneTakeoff, Route, Search, Send, ShieldCheck, SlidersHorizontal, Sparkles, Stamp, Trash2, TriangleAlert, UserRound } });
+createIcons({ icons: { Apple, ArrowLeft, ArrowRight, ArrowUpRight, BookOpen, BriefcaseBusiness, Building2, CalendarDays, Check, ChevronRight, Circle, CircleCheck, CircleX, CreditCard, FileCheck2, Files, GraduationCap, Info, ListChecks, Map, Menu, MoreHorizontal, MoveDown, PlaneTakeoff, Play, Route, Search, Send, ShieldCheck, SlidersHorizontal, Sparkles, Stamp, Trash2, TriangleAlert, UserRound } });
 
 function initNavigation() {
   const navbar = document.getElementById('navbar');
@@ -38,39 +36,6 @@ function initReveal() {
     });
   }, { threshold: 0.12, rootMargin: '0px 0px -36px' });
   elements.forEach((element) => observer.observe(element));
-}
-
-function initWaitlist() {
-  const form = document.getElementById('newsletterForm');
-  const message = document.getElementById('waitlistMessage');
-  if (!form || !message) return;
-  form.addEventListener('submit', async (event) => {
-    event.preventDefault();
-    const input = form.querySelector('#waitlistEmail');
-    const button = form.querySelector('button');
-    const email = input.value.trim();
-    if (!email || !button) return;
-    const original = button.innerHTML;
-    button.disabled = true;
-    button.textContent = 'Joining…';
-    message.textContent = '';
-    message.className = 'newsletter__message';
-    try {
-      const response = await fetch(WAITLIST_API_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, source: 'landing_page' }) });
-      const payload = await response.json();
-      if (!response.ok) throw new Error(payload?.message || 'Could not join the waitlist. Please try again.');
-      message.textContent = payload?.alreadyJoined ? 'You are already on the waitlist.' : 'You are on the list. We will be in touch soon.';
-      message.classList.add('newsletter__message--success');
-      input.value = '';
-    } catch (error) {
-      message.textContent = error?.message || 'Something went wrong. Please try again.';
-      message.classList.add('newsletter__message--error');
-    } finally {
-      button.disabled = false;
-      button.innerHTML = original;
-      createIcons({ icons: { ArrowRight } });
-    }
-  });
 }
 
 function initDeleteAccount() {
@@ -176,7 +141,6 @@ function initDeleteAccount() {
 function initApp() {
   initNavigation();
   initReveal();
-  initWaitlist();
   initDeleteAccount();
 }
 

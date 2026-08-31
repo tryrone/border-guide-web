@@ -58,7 +58,7 @@ img, svg { display: block; max-width: 100%; }
 .eyebrow { margin: 0 0 24px; display: flex; align-items: center; gap: 10px; font: 700 11px/1 var(--font-heading); letter-spacing: .17em; text-transform: uppercase; }
 .eyebrow span { width: 28px; height: 1px; background: currentColor; }
 .eyebrow--light { color: rgba(255,255,255,.76); }
-.hero h1, .section-heading h2, .discover__copy h2, .companion__copy h2, .waitlist h2 { margin: 0; font-family: var(--font-heading); font-weight: 700; letter-spacing: -.055em; line-height: .99; }
+.hero h1, .section-heading h2, .discover__copy h2, .companion__copy h2, .download h2 { margin: 0; font-family: var(--font-heading); font-weight: 700; letter-spacing: -.055em; line-height: .99; }
 .hero h1 { max-width: 680px; font-size: clamp(54px, 6.2vw, 88px); }
 .hero h1 em { display: block; font-style: normal; color: var(--muted); }
 .hero__lede { max-width: 610px; margin: 28px 0 0; color: var(--muted); font-size: 18px; line-height: 1.7; }
@@ -117,7 +117,7 @@ img, svg { display: block; max-width: 100%; }
 
 .section { padding: 120px 0; }
 .section-heading { max-width: 770px; margin-bottom: 56px; }
-.section-heading h2, .discover__copy h2, .companion__copy h2, .waitlist h2 { font-size: clamp(42px, 5vw, 66px); }
+.section-heading h2, .discover__copy h2, .companion__copy h2, .download h2 { font-size: clamp(42px, 5vw, 66px); }
 .section-heading > p:last-child, .discover__copy > p, .companion__copy > p { max-width: 600px; margin: 24px 0 0; color: var(--muted); font-size: 17px; }
 .journey__steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
 .journey-card { min-height: 338px; padding: 24px; display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--surface); }
@@ -184,19 +184,18 @@ img, svg { display: block; max-width: 100%; }
 .beyond-card h3 { margin: 44px 0 10px; font: 700 22px/1.1 var(--font-heading); }
 .beyond-card p { margin: 0; max-width: 300px; color: var(--muted); font-size: 14px; }
 
-.waitlist { padding-block: 80px 110px; }
-.waitlist__inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: end; padding: 64px; border-radius: var(--radius-xl); background: var(--dark); color: white; }
-.waitlist h2 { max-width: 600px; }
-.waitlist__inner > div > p:last-child { margin: 20px 0 0; color: #a9a9a4; }
-.waitlist__form > label { display: block; margin-bottom: 9px; color: #bcbcb7; font-size: 12px; font-weight: 600; }
-.waitlist__form > div { display: grid; grid-template-columns: 1fr auto; gap: 8px; padding: 6px; border: 1px solid #383836; border-radius: 999px; background: #171716; }
-.waitlist__form input { min-width: 0; height: 48px; padding: 0 16px; border: 0; outline: 0; background: transparent; color: white; }
-.waitlist__form button { min-height: 48px; display: inline-flex; align-items: center; gap: 8px; padding: 0 20px; border: 0; border-radius: 999px; background: white; color: var(--ink); font-size: 13px; font-weight: 700; cursor: pointer; }
-.waitlist__form button:disabled { opacity: .6; cursor: wait; }
-.waitlist__form button svg { width: 16px; }
-.newsletter__message { min-height: 22px; margin: 10px 10px 0; font-size: 12px; }
-.newsletter__message--success { color: #73d89d; }
-.newsletter__message--error { color: #ff8b83; }
+.download { padding-block: 80px 110px; }
+.download__inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; padding: 64px; border-radius: var(--radius-xl); background: var(--dark); color: white; }
+.download h2 { max-width: 600px; }
+.download__copy > p:last-child { max-width: 570px; margin: 20px 0 0; color: #a9a9a4; }
+.download__actions { display: grid; gap: 12px; }
+.store-link { display: grid; grid-template-columns: 32px 1fr 20px; gap: 15px; align-items: center; min-height: 76px; padding: 12px 18px; border: 1px solid #d8d8d3; border-radius: 20px; background: white; color: var(--ink); transition: transform .2s ease, background .2s ease, border-color .2s ease; }
+.store-link:hover { transform: translateY(-2px); background: #f1f1ee; border-color: #f1f1ee; }
+.store-link > svg:first-child { width: 28px; height: 28px; }
+.store-link > span { display: grid; }
+.store-link small { color: var(--muted); font-size: 11px; font-weight: 600; line-height: 1.2; }
+.store-link strong { margin-top: 3px; font: 700 20px/1.1 var(--font-heading); letter-spacing: -.025em; }
+.store-link__arrow { width: 18px; color: var(--muted); }
 
 .footer { padding: 10px 0 28px; }
 .footer__top { min-height: 150px; display: flex; justify-content: space-between; gap: 40px; padding-block: 36px; border-top: 1px solid var(--line); }
@@ -256,7 +255,7 @@ img, svg { display: block; max-width: 100%; }
   .beyond__grid { grid-template-columns: 1fr; }
   .beyond-card { min-height: 250px; border-right: 0; border-bottom: 1px solid var(--line); }
   .beyond-card:last-child { border-bottom: 0; }
-  .waitlist__inner { grid-template-columns: 1fr; gap: 40px; }
+  .download__inner { grid-template-columns: 1fr; gap: 40px; }
 }
 
 @media (max-width: 640px) {
@@ -276,7 +275,7 @@ img, svg { display: block; max-width: 100%; }
   .signal-strip__inner { justify-content: space-between; gap: clamp(6px, 2vw, 10px); overflow: hidden; }
   .signal-strip span { font-size: 9px; letter-spacing: .12em; }
   .signal-strip span:nth-of-type(n+4), .signal-strip i:nth-of-type(n+3) { display: none; }
-  .section-heading h2, .discover__copy h2, .companion__copy h2, .waitlist h2 { font-size: 42px; }
+  .section-heading h2, .discover__copy h2, .companion__copy h2, .download h2 { font-size: 42px; }
   .journey__steps { grid-template-columns: 1fr; }
   .journey-card { min-height: 285px; }
   .journey-card > svg { margin-top: 45px; }
@@ -285,9 +284,10 @@ img, svg { display: block; max-width: 100%; }
   .dashboard-preview { padding: 16px; }
   .next-task { grid-template-columns: 44px 1fr; }
   .next-task > svg { display: none; }
-  .waitlist__inner { padding: 36px 22px; border-radius: 28px; }
-  .waitlist__form > div { grid-template-columns: 1fr; border-radius: 18px; }
-  .waitlist__form button { width: 100%; }
+  .download__inner { padding: 36px 22px; border-radius: 28px; }
+  .store-link { grid-template-columns: 28px 1fr 18px; gap: 12px; padding-inline: 15px; }
+  .store-link > svg:first-child { width: 25px; height: 25px; }
+  .store-link strong { font-size: 18px; }
   .footer__top, .footer__bottom { flex-direction: column; }
   .footer__links { gap: 14px 20px; }
 }
